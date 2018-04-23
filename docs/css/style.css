@@ -1,0 +1,32 @@
+body, html {
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+main {
+    position: relative;
+}
+
+div {
+    display: block;
+    position: absolute;
+    transform: translateZ(0);
+}
+
+.block {
+    cursor: pointer;
+}
+
+.score {
+    background-color: #000000;
+    color: #FFFFFF;
+    font-size: 20px;
+    padding: 5px;
+    text-align: center;
+}
