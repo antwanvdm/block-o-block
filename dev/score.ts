@@ -2,7 +2,7 @@ class Score extends DomElement {
     score: number = 0;
 
     constructor() {
-        super('score', 10, 10, 'level');
+        super('score', 10, 10, 'gui');
         this.el.innerHTML = `score: ${this.score.toString()}`;
     }
 

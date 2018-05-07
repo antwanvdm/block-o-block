@@ -1,17 +1,26 @@
-class Level extends DomElement{
-    private totalBlocks: number = 10;
+class Level extends DomElement {
+    private totalBlocks: number;
     private blocks: Block[] = [];
-    private score: Score;
     private player: Player;
+    private timer: Timer;
     private scorePerBlock: number = 10;
+    public failed = false;
 
-    constructor() {
+    constructor(totalBlocks: number) {
         super('level', 0, 0);
+
+        this.totalBlocks = totalBlocks;
         this.player = new Player();
+        this.timer = new Timer();
+
         for (let i = 0; i < this.totalBlocks; i++) {
-            this.blocks.push(new Block(Utils.getRandomColor(), Utils.getRandomInt(1, 5), i * 100, Utils.getRandomInt(10, 150), Utils.getRandomInt(10, 150)));
+            this.blocks.push(new Block(Utils.getRandomColor(), Utils.getRandomInt(1, 5), Utils.getRandomInt(10, 150), Utils.getRandomInt(10, 150)));
         }
-        this.score = new Score();
+
+        WindowEventHandler.addEventListener('timer:done', () => {
+            this.failed = true;
+            this.destroy('level:failed');
+        });
     }
 
     public update() {
@@ -22,13 +31,26 @@ class Level extends DomElement{
                 this.player.blockCaught(block);
                 block.destroy();
                 this.blocks.splice(index, 1);
-                this.score.update(this.scorePerBlock);
+                window.dispatchEvent(new CustomEvent('level:scoreUpdate', {detail: {score: this.scorePerBlock}}));
 
-                if (this.blocks.length === 0) {
-                    window.dispatchEvent(new Event('level:gameover'));
-                    this.el.remove();
+                if (this.blocks.length === 0 && this.failed === false) {
+                    console.log("??");
+                    this.destroy('level:success');
                 }
             }
         });
+    }
+
+    /**
+     * Destroy object & timer and trigger event to notify the world about the status of this level
+     * 
+     * @param eventType 
+     */
+    private destroy(eventType:string) {
+        window.dispatchEvent(new Event(eventType));
+        this.timer.destroy();
+        this.player.destroy();
+        WindowEventHandler.removeEventListener('timer:done');
+        this.el.remove();
     }
 }

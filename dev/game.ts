@@ -1,13 +1,14 @@
 class Game {
     private level: Level;
-    private gameOver: GameOver;
+    private elementsPerLevel: number = 5;
+    private elementsIncreasePerLevel: number = 5;
+    private gui: GUI;
 
     constructor() {
-        this.level = new Level();
-        this.gameOver = new GameOver();
+        this.level = new Level(this.elementsPerLevel);
+        this.gui = new GUI();
 
         this.gameLoop();
-        window.addEventListener('level:gameover', () => this.gameOver.show());
         window.addEventListener('gameover:restart', () => this.startNewLevel());
     }
 
@@ -25,10 +26,14 @@ class Game {
      * Time to start all over
      */
     private startNewLevel() {
-        console.log("???");
+        if (this.level.failed === false) {
+            this.elementsPerLevel += this.elementsIncreasePerLevel;
+        }
+
         delete this.level;
-        this.gameOver.hide();
-        this.level = new Level();
+        this.gui.newLevel();
+
+        this.level = new Level(this.elementsPerLevel);
     }
 }
 

@@ -1,15 +1,14 @@
 class Block extends DomElement {
     private speed: number;
-    private timeout: number;
     protected width: number;
     protected height: number;
     public color: string;
+    private destination = { x: 0, y: 0 };
 
-    constructor(color: string, speed: number, timeout: number, width: number, height: number) {
+    constructor(color: string, speed: number, width: number, height: number) {
         super('block', 0, 0, 'level');
 
         this.speed = speed;
-        this.timeout = timeout;
         this.width = width;
         this.height = height;
         this.color = color;
@@ -30,25 +29,23 @@ class Block extends DomElement {
      * Main update handler for the game
      */
     public update() {
-        setTimeout(() => this.updateXY(), this.timeout);
-    }
+        if (this.x > (this.destination.x - this.speed) && this.x < (this.destination.x + this.speed)) {
+            this.destination.x = Utils.getRandomInt(0, (window.outerWidth - this.width));
+        }
+        if (this.y > (this.destination.y - this.speed) && this.y < (this.destination.y + this.speed)) {
+            this.destination.y = Utils.getRandomInt(0, (document.documentElement.clientHeight - this.height));
+        }
 
-    /**
-     * Actual handler for updating X & Y for a block
-     */
-    private updateXY() {
-        if (this.x < (window.outerWidth - this.width) && this.y === 0) {
+        if (this.destination.x >= this.x) {
             this.x += this.speed;
-        } else if (this.x >= (window.outerWidth - this.width) && this.y < (document.documentElement.clientHeight - this.height)) {
-            this.y += this.speed;
-        } else if (this.y >= (document.documentElement.clientHeight - this.height) && this.x > 0) {
-            this.x -= this.speed;
-        } else if (this.x === 0 && this.y > 0) {
-            this.y -= this.speed;
         } else {
-            //someone loves messing with resizing.. reset!
-            this.x = 0;
-            this.y = 0;
+            this.x -= this.speed;
+        }
+
+        if (this.destination.y >= this.y) {
+            this.y += this.speed;
+        } else {
+            this.y -= this.speed;   
         }
 
         this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;

@@ -3,7 +3,7 @@ class Player extends DomElement {
     private width: number = 10;
     private growthFactor: number = 1.5;
     private speed: number = 2;
-    private speedIncreaseFactor: number = 0.5;
+    private speedIncreaseFactor: number = 0.2;
     private keysAllowed: number[] = [37, 38, 39, 40];
     private keysPressed: number[] = [];
 
@@ -14,8 +14,8 @@ class Player extends DomElement {
 
         this.el.style.width = `${this.width}px`;
         this.el.style.height = `${this.height}px`;
-        window.addEventListener('keydown', (e) => this.keyDownHandler(e));
-        window.addEventListener('keyup', (e) => this.keyUpHandler(e));
+        WindowEventHandler.addEventListener('keydown.player', (e: KeyboardEvent) => this.keyDownHandler(e));
+        WindowEventHandler.addEventListener('keyup.player', (e: KeyboardEvent) => this.keyUpHandler(e));
     }
 
     /**
@@ -86,5 +86,13 @@ class Player extends DomElement {
         this.el.style.height = `${this.height}px`;
         this.el.style.width = `${this.width}px`;
         this.el.style.backgroundColor = block.color;
+    }
+
+    /**
+     * Clean up!
+     */
+    public destroy() {
+        WindowEventHandler.removeEventListener('keydown.player');
+        WindowEventHandler.removeEventListener('keyup.player');
     }
 }

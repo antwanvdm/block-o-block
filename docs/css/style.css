@@ -24,7 +24,24 @@ div {
     cursor: pointer;
 }
 
+.player {
+    border-radius: 5px;
+    background-color: #000000;
+}
+
+.timer {
+    position: relative;
+    font-size: 20px;
+    padding: 5px;
+    text-align: center;
+}
+
+.gui {
+    z-index: 2;
+}
+
 .score {
+    position: relative;
     background-color: #000000;
     color: #FFFFFF;
     font-size: 20px;
@@ -32,16 +49,19 @@ div {
     text-align: center;
 }
 
-.player {
-    border-radius: 5px;
-    background-color: #000000;
-}
-
 .gameover {
     display: none;
     background-color: #FF0000;
+    color: #FFFFFF;
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    justify-content:center;
+    align-content:center;
+    flex-direction:column;
 }
 
 .gameover.show {
-    display: block;
+    cursor: pointer;
+    display: flex;
 }
