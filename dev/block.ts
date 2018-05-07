@@ -26,7 +26,7 @@ class Block extends DomElement {
     }
 
     /**
-     * Main update handler for the game
+     * Main update handler for the game for moving our block randomly over the screen
      */
     public update() {
         if (this.x > (this.destination.x - this.speed) && this.x < (this.destination.x + this.speed)) {

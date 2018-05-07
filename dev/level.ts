@@ -23,6 +23,9 @@ class Level extends DomElement {
         });
     }
 
+    /**
+     * Checks for collision and potential success of this level
+     */
     public update() {
         this.player.update();
         this.blocks.forEach((block, index) => {
@@ -34,7 +37,6 @@ class Level extends DomElement {
                 window.dispatchEvent(new CustomEvent('level:scoreUpdate', {detail: {score: this.scorePerBlock}}));
 
                 if (this.blocks.length === 0 && this.failed === false) {
-                    console.log("??");
                     this.destroy('level:success');
                 }
             }

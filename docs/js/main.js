@@ -52,7 +52,6 @@ class Level extends DomElement {
                 this.blocks.splice(index, 1);
                 window.dispatchEvent(new CustomEvent('level:scoreUpdate', { detail: { score: this.scorePerBlock } }));
                 if (this.blocks.length === 0 && this.failed === false) {
-                    console.log("??");
                     this.destroy('level:success');
                 }
             }
@@ -145,7 +144,6 @@ class GameOver extends DomElement {
         this.el.addEventListener('click', () => window.dispatchEvent(new Event('gameover:restart')));
     }
     show(type) {
-        console.log(type);
         this.el.innerHTML = this.messages[type];
         this.el.classList.add('show');
     }

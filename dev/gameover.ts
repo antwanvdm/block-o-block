@@ -20,8 +20,12 @@ class GameOver extends DomElement {
         this.el.addEventListener('click', () => window.dispatchEvent(new Event('gameover:restart')));
     }
 
+    /**
+     * Show the desired message (type matches index in object)
+     * 
+     * @param type 
+     */
     public show(type: string) {
-        console.log(type);
         this.el.innerHTML = this.messages[type];
         this.el.classList.add('show');
     }

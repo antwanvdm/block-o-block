@@ -9,6 +9,9 @@ class Timer extends DomElement {
         this.intervalId = setInterval(() => this.update(), 1000);
     }
 
+    /**
+     * Countdown of seconds
+     */
     private update() {
         this.seconds--;
         this.el.innerHTML = `time: ${this.seconds}`;
