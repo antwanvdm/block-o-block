@@ -1,22 +1,34 @@
 class Game {
-    private totalBlocks: number = 10;
-    private blocks: Block[] = [];
-    private score: Score;
+    private level: Level;
+    private gameOver: GameOver;
 
     constructor() {
-        for (let i = 0; i < this.totalBlocks; i++) {
-            this.blocks.push(new Block(Utils.getRandomColor(), Utils.getRandomInt(1, 5), i * 100, Utils.getRandomInt(10, 150), Utils.getRandomInt(10, 150)));
-        }
-        this.score = new Score();
+        this.level = new Level();
+        this.gameOver = new GameOver();
+
         this.gameLoop();
+        window.addEventListener('level:gameover', () => this.gameOver.show());
+        window.addEventListener('gameover:restart', () => this.startNewLevel());
     }
 
     /**
      * The only place for a requestAnimationFrame
      */
-    gameLoop() {
-        this.blocks.forEach((block) => block.update());
+    private gameLoop() {
+        if (typeof this.level !== 'undefined') {
+            this.level.update();
+        }
         requestAnimationFrame(() => this.gameLoop());
+    }
+
+    /**
+     * Time to start all over
+     */
+    private startNewLevel() {
+        console.log("???");
+        delete this.level;
+        this.gameOver.hide();
+        this.level = new Level();
     }
 }
 

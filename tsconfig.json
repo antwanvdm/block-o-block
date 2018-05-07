@@ -10,6 +10,7 @@
     },
     "include": [
         "dev/domelement.ts",
+        "dev/level.ts",
         "dev/**/*"
     ]
 }

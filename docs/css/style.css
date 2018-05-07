@@ -3,6 +3,7 @@ body, html {
     padding:0;
     width:100%;
     height:100%;
+    overflow: hidden;
 }
 
 * {
@@ -29,4 +30,18 @@ div {
     font-size: 20px;
     padding: 5px;
     text-align: center;
+}
+
+.player {
+    border-radius: 5px;
+    background-color: #000000;
+}
+
+.gameover {
+    display: none;
+    background-color: #FF0000;
+}
+
+.gameover.show {
+    display: block;
 }

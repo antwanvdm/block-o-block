@@ -1,34 +1,29 @@
 class Block extends DomElement {
-    speed: number;
-    timeout: number;
+    private speed: number;
+    private timeout: number;
     protected width: number;
     protected height: number;
+    public color: string;
 
     constructor(color: string, speed: number, timeout: number, width: number, height: number) {
-        super('block', 0, 0);
+        super('block', 0, 0, 'level');
 
         this.speed = speed;
         this.timeout = timeout;
         this.width = width;
         this.height = height;
+        this.color = color;
 
-        this.el.style.backgroundColor = color;
-        this.el.style.width = this.width + 'px';
-        this.el.style.height = this.height + 'px';
-        this.el.addEventListener('click', (e) => this.clickHandler(e));
+        this.el.style.backgroundColor = this.color;
+        this.el.style.width = `${this.width}px`;
+        this.el.style.height = `${this.height}px`;
     }
 
     /**
      * Handler for clicking the blocks
-     * 
-     * @param e 
      */
-    private clickHandler(e: MouseEvent) {
-        e.target;
+    public destroy() {
         this.el.remove();
-
-        let scoreUpdateEvents = new CustomEvent('scoreUpdate', { detail: { score: 10 } });
-        window.dispatchEvent(scoreUpdateEvents);
     }
 
     /**
