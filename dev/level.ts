@@ -1,15 +1,16 @@
 class Level extends DomElement {
     private readonly totalBlocks: number;
+    private readonly scorePerBlock: number;
     private blocks: Block[] = [];
     private player: Player;
     private timer: Timer;
-    private scorePerBlock: number = 10;
     public failed = false;
 
-    constructor(totalBlocks: number) {
+    constructor(totalBlocks: number, scorePerBlock: number) {
         super('level', 0, 0);
 
         this.totalBlocks = totalBlocks;
+        this.scorePerBlock = scorePerBlock;
         this.player = new Player();
         this.timer = new Timer();
 

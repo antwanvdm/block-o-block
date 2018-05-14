@@ -26,12 +26,12 @@ class DomElement {
     }
 }
 class Level extends DomElement {
-    constructor(totalBlocks) {
+    constructor(totalBlocks, scorePerBlock) {
         super('level', 0, 0);
         this.blocks = [];
-        this.scorePerBlock = 10;
         this.failed = false;
         this.totalBlocks = totalBlocks;
+        this.scorePerBlock = scorePerBlock;
         this.player = new Player();
         this.timer = new Timer();
         for (let i = 0; i < this.totalBlocks; i++) {
@@ -109,16 +109,29 @@ class Block extends DomElement {
 }
 class Game {
     constructor() {
+        this.levelsPerGame = 10;
+        this.currentLevelsPlayed = 0;
         this.elementsPerLevel = 5;
         this.elementsIncreasePerLevel = 5;
+        this.scorePerElement = 10;
         this.gui = new GUI();
+        this.maxScore = this.calculateMaxScore();
         this.gameLoop();
-        window.addEventListener('game:start:click', () => this.start());
-        ['level:success:click', 'level:failed:click'].map((eventType) => { window.addEventListener(eventType, () => this.startNewLevel()); });
+        ['level:success', 'level:failed'].map((eventType) => {
+            window.addEventListener(eventType, (e) => this.update(e.type));
+        });
+        ['game:start:click', 'level:success:click', 'level:failed:click'].map((eventType) => {
+            window.addEventListener(eventType, () => this.startNewLevel());
+        });
+        window.addEventListener('game:end:click', () => this.restart());
     }
-    start() {
-        this.level = new Level(this.elementsPerLevel);
-        this.gui.newLevel();
+    calculateMaxScore() {
+        let maxScore = 0;
+        for (let i = 0; i < this.levelsPerGame; i++) {
+            let elements = this.elementsPerLevel + (i === 0 ? 0 : (this.elementsIncreasePerLevel * i));
+            maxScore += (elements * this.scorePerElement);
+        }
+        return maxScore;
     }
     gameLoop() {
         if (typeof this.level !== 'undefined') {
@@ -126,13 +139,26 @@ class Game {
         }
         requestAnimationFrame(() => this.gameLoop());
     }
+    update(type) {
+        this.currentLevelsPlayed++;
+        if (this.currentLevelsPlayed === this.levelsPerGame) {
+            this.gui.gameEnd(this.maxScore);
+            return;
+        }
+        this.gui.levelDone(type);
+    }
     startNewLevel() {
-        if (this.level.failed === false) {
+        if (this.level && this.level.failed === false) {
             this.elementsPerLevel += this.elementsIncreasePerLevel;
         }
         delete this.level;
         this.gui.newLevel();
-        this.level = new Level(this.elementsPerLevel);
+        this.level = new Level(this.elementsPerLevel, this.scorePerElement);
+    }
+    restart() {
+        this.gui.restart();
+        this.currentLevelsPlayed = 0;
+        this.elementsPerLevel = 5;
     }
 }
 window.addEventListener("load", () => new Game());
@@ -142,10 +168,22 @@ class GUI extends DomElement {
         this.score = new Score();
         this.messageScreen = new MessageScreen();
         window.addEventListener('level:scoreUpdate', (e) => this.score.update(e.detail.score));
-        ['level:success', 'level:failed'].map((eventType) => { window.addEventListener(eventType, (e) => this.messageScreen.show(e.type)); });
+    }
+    levelDone(type) {
+        this.messageScreen.show(type);
     }
     newLevel() {
         this.messageScreen.hide();
+    }
+    gameEnd(maxScore) {
+        this.messageScreen.show('game:end', {
+            '__SCORE__': this.score.get().toString(),
+            '__MAX_SCORE__': maxScore.toString()
+        });
+    }
+    restart() {
+        this.messageScreen.show('game:start');
+        this.score.update(0, true);
     }
 }
 class MessageScreen extends DomElement {
@@ -155,6 +193,7 @@ class MessageScreen extends DomElement {
         this.width = 400;
         this.messages = {
             'game:start': 'Welcome to Block-o-Block, it\'s time to catch them blocks!<br/><br/>Use your arrow keys to move your player around.',
+            'game:end': 'You made it, your final score is __SCORE__ out of max __MAX_SCORE__ points.<br/><br/>Thanks for playing, you can click to restart the madness',
             'level:success': 'YEAH! Level completed! Click here to proceed to the next level',
             'level:failed': 'AAH! Level failed! Click here to restart this level'
         };
@@ -166,8 +205,12 @@ class MessageScreen extends DomElement {
         this.show('game:start');
         this.el.addEventListener('click', () => window.dispatchEvent(new Event(`${this.currentEvent}:click`)));
     }
-    show(type) {
-        this.el.innerHTML = this.messages[type];
+    show(type, replacements = {}) {
+        let message = this.messages[type];
+        for (let replacement in replacements) {
+            message = message.replace(replacement, replacements[replacement]);
+        }
+        this.el.innerHTML = message;
         this.el.classList.add('show');
         this.currentEvent = type;
     }
@@ -247,8 +290,11 @@ class Score extends DomElement {
         this.score = 0;
         this.el.innerHTML = `score: ${this.score.toString()}`;
     }
-    update(score) {
-        this.score += score;
+    get() {
+        return this.score;
+    }
+    update(score, reset = false) {
+        this.score = reset ? score : this.score + score;
         this.el.innerHTML = `score: ${this.score.toString()}`;
     }
 }
@@ -272,7 +318,7 @@ class Timer extends DomElement {
 }
 class Utils {
     static getRandomColor() {
-        var o = Math.round, r = Math.random, s = 255;
+        let o = Math.round, r = Math.random, s = 255;
         return `rgba(${o(r() * s)},${o(r() * s)},${o(r() * s)},1)`;
     }
     static getRandomInt(min, max) {

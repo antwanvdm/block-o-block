@@ -1,5 +1,28 @@
-# Typescript project
+# Block-o-Block game
 
+## What is this game about?
+This game is mainly about getting more knowledge about typescript and
+building a game around it. The base idea is to give users a simple circle
+which can catch blocks by using your arrow keys. Each level results in
+having more blocks on your screen with the same time available per level.
+Your will always be able to only play X amount of levels, which results
+in a total score at the end of your game.
+
+## Why did I start this?
+Pretty ease, my students are working on a Typescript game as we speak,
+and I wanted to make sure I mastered the basics. After 1 day my ambitions
+grew and this game will probably get way bigger than ever intended...
+
+## How to get it running?
 1. Install typescript
 2. Run tsc -w in the root folder
 3. Have a web server running with the /docs folder as root folder
+
+## Road map
+* Structure the code better. I've started with the simplest setup, but
+off course it needs modules/webpack and a more logical folder structure.
+* More interaction in the levels to have a more dynamic feeling, I guess
+the game could get boring now :-)
+* Store scores and show a high score list
+* Maybe translate the DOM element to Canvas elements, because it will
+probably perform better in the end

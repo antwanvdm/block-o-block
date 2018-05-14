@@ -5,6 +5,7 @@ class MessageScreen extends DomElement {
 
     private messages: { [k: string]: string } = {
         'game:start': 'Welcome to Block-o-Block, it\'s time to catch them blocks!<br/><br/>Use your arrow keys to move your player around.',
+        'game:end': 'You made it, your final score is __SCORE__ out of max __MAX_SCORE__ points.<br/><br/>Thanks for playing, you can click to restart the madness',
         'level:success': 'YEAH! Level completed! Click here to proceed to the next level',
         'level:failed': 'AAH! Level failed! Click here to restart this level'
     };
@@ -27,13 +28,22 @@ class MessageScreen extends DomElement {
      * Show the desired message (type matches index in object)
      *
      * @param type
+     * @param [replacements]
      */
-    public show(type: string) {
-        this.el.innerHTML = this.messages[type];
+    public show(type: string, replacements: { [k: string]: string } = {}) {
+        let message = this.messages[type];
+        for (let replacement in replacements) {
+            message = message.replace(replacement, replacements[replacement]);
+        }
+
+        this.el.innerHTML = message;
         this.el.classList.add('show');
         this.currentEvent = type;
     }
 
+    /**
+     * Hide message on screen
+     */
     public hide() {
         this.el.classList.remove('show');
     }
