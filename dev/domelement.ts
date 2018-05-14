@@ -13,7 +13,7 @@ class DomElement {
             throw new Error("<main> element doesn't exist!");
         }
 
-        this.el.style.transform = `translate(${this.x}px, ${this.y}px)`
+        this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
         this.el.classList.add(type);
 
         if (parentClass === '') {

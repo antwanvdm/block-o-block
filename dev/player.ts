@@ -15,14 +15,15 @@ class Player extends DomElement {
         this.el.style.width = `${this.width}px`;
         this.el.style.height = `${this.height}px`;
         this.el.style.borderRadius = `${this.width}px`;
+
         WindowEventHandler.addEventListener('keydown.player', (e: KeyboardEvent) => this.keyDownHandler(e));
         WindowEventHandler.addEventListener('keyup.player', (e: KeyboardEvent) => this.keyUpHandler(e));
     }
 
     /**
      * Key down handler for moving the player
-     * 
-     * @param e 
+     *
+     * @param e
      */
     private keyDownHandler(e: KeyboardEvent) {
         let key = e.keyCode;
@@ -33,8 +34,8 @@ class Player extends DomElement {
 
     /**
      * Key down handler for moving the player
-     * 
-     * @param e 
+     *
+     * @param e
      */
     private keyUpHandler(e: KeyboardEvent) {
         let key = e.keyCode;
@@ -76,8 +77,8 @@ class Player extends DomElement {
 
     /**
      * Update player when a block got caught
-     * 
-     * @param block 
+     *
+     * @param block
      */
     public blockCaught(block: Block) {
         this.speed += this.speedIncreaseFactor;

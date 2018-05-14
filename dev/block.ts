@@ -1,9 +1,9 @@
 class Block extends DomElement {
-    private speed: number;
-    protected width: number;
-    protected height: number;
+    private readonly speed: number;
+    private readonly width: number;
+    private readonly height: number;
     public color: string;
-    private destination = { x: 0, y: 0 };
+    private destination = {x: 0, y: 0};
 
     constructor(color: string, speed: number, width: number, height: number) {
         super('block', 0, 0, 'level');

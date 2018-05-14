@@ -1,5 +1,5 @@
 class Level extends DomElement {
-    private totalBlocks: number;
+    private readonly totalBlocks: number;
     private blocks: Block[] = [];
     private player: Player;
     private timer: Timer;
@@ -35,7 +35,7 @@ class Level extends DomElement {
                 this.player.blockCaught(block);
                 block.destroy();
                 this.blocks.splice(index, 1);
-                window.dispatchEvent(new CustomEvent('level:scoreUpdate', { detail: { score: this.scorePerBlock } }));
+                window.dispatchEvent(new CustomEvent('level:scoreUpdate', {detail: {score: this.scorePerBlock}}));
 
                 if (this.blocks.length === 0) {
                     this.destroy('level:success');
@@ -46,8 +46,8 @@ class Level extends DomElement {
 
     /**
      * Destroy object & timer and trigger event to notify the world about the status of this level
-     * 
-     * @param eventType 
+     *
+     * @param eventType
      */
     private destroy(eventType: string) {
         this.timer.destroy();

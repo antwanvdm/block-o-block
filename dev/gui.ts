@@ -9,7 +9,9 @@ class GUI extends DomElement {
         this.messageScreen = new MessageScreen();
 
         window.addEventListener('level:scoreUpdate', (e) => this.score.update((e as CustomEvent).detail.score));
-        ['level:success', 'level:failed'].map((eventType) => { window.addEventListener(eventType, (e) => this.messageScreen.show(e.type)); });
+        ['level:success', 'level:failed'].map((eventType) => {
+            window.addEventListener(eventType, (e) => this.messageScreen.show(e.type));
+        });
     }
 
     public newLevel() {

@@ -25,8 +25,8 @@ class MessageScreen extends DomElement {
 
     /**
      * Show the desired message (type matches index in object)
-     * 
-     * @param type 
+     *
+     * @param type
      */
     public show(type: string) {
         this.el.innerHTML = this.messages[type];

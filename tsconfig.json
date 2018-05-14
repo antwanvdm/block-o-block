@@ -1,16 +1,16 @@
 {
-    "compilerOptions": {
-        "strict": true,
-        "target": "es6",
-        "removeComments": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "sourceMap": true,
-        "outFile": "docs/js/main.js"
-    },
-    "include": [
-        "dev/domelement.ts",
-        "dev/level.ts",
-        "dev/**/*"
-    ]
+  "compilerOptions": {
+    "strict": true,
+    "target": "es6",
+    "removeComments": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "outFile": "docs/js/main.js"
+  },
+  "include": [
+    "dev/domelement.ts",
+    "dev/level.ts",
+    "dev/**/*"
+  ]
 }

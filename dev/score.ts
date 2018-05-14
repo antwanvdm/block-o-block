@@ -8,8 +8,8 @@ class Score extends DomElement {
 
     /**
      * Update the score based on a Custom Event from the Block object
-     * 
-     * @param e 
+     *
+     * @param score
      */
     public update(score: number) {
         this.score += score;

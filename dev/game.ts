@@ -8,12 +8,17 @@ class Game {
         this.gui = new GUI();
         this.gameLoop();
 
-        window.addEventListener('game:start:click', () => this.start());
-        ['level:success:click', 'level:failed:click'].map((eventType) => { window.addEventListener(eventType, () => this.startNewLevel()); });
+        window.addEventListener('game:start:click', () => this.startFirstLevel());
+        ['level:success:click', 'level:failed:click'].map((eventType) => {
+            window.addEventListener(eventType, () => this.startNewLevel());
+        });
     }
 
-    private start(){
-        this.level = new Level(this.elementsPerLevel)
+    /**
+     * Actual start of the first level of the game
+     */
+    private startFirstLevel() {
+        this.level = new Level(this.elementsPerLevel);
         this.gui.newLevel();
     }
 
