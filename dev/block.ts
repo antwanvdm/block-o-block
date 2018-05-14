@@ -14,6 +14,7 @@ class Block extends DomElement {
         this.color = color;
 
         this.el.style.backgroundColor = this.color;
+        this.el.style.backgroundImage = `linear-gradient(90deg, rgba(2,0,36,1) 0%, ${this.color} 29%, #FFFFFF 100%)`;
         this.el.style.width = `${this.width}px`;
         this.el.style.height = `${this.height}px`;
     }
@@ -45,7 +46,7 @@ class Block extends DomElement {
         if (this.destination.y >= this.y) {
             this.y += this.speed;
         } else {
-            this.y -= this.speed;   
+            this.y -= this.speed;
         }
 
         this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;

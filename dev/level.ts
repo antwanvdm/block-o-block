@@ -30,13 +30,14 @@ class Level extends DomElement {
         this.player.update();
         this.blocks.forEach((block, index) => {
             block.update();
-            if (Utils.checkCollision(this.player.getClientReact(), block.getClientReact())) {
+
+            if (Utils.checkCollision(this.player.getClientReact(), block.getClientReact()) && this.failed === false) {
                 this.player.blockCaught(block);
                 block.destroy();
                 this.blocks.splice(index, 1);
-                window.dispatchEvent(new CustomEvent('level:scoreUpdate', {detail: {score: this.scorePerBlock}}));
+                window.dispatchEvent(new CustomEvent('level:scoreUpdate', { detail: { score: this.scorePerBlock } }));
 
-                if (this.blocks.length === 0 && this.failed === false) {
+                if (this.blocks.length === 0) {
                     this.destroy('level:success');
                 }
             }
@@ -48,11 +49,15 @@ class Level extends DomElement {
      * 
      * @param eventType 
      */
-    private destroy(eventType:string) {
-        window.dispatchEvent(new Event(eventType));
+    private destroy(eventType: string) {
         this.timer.destroy();
         this.player.destroy();
+        this.blocks.forEach((block, index) => {
+            block.destroy();
+            this.blocks.splice(index, 1);
+        });
         WindowEventHandler.removeEventListener('timer:done');
+        window.dispatchEvent(new Event(eventType));
         this.el.remove();
     }
 }

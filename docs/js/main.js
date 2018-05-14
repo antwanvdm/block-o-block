@@ -46,22 +46,26 @@ class Level extends DomElement {
         this.player.update();
         this.blocks.forEach((block, index) => {
             block.update();
-            if (Utils.checkCollision(this.player.getClientReact(), block.getClientReact())) {
+            if (Utils.checkCollision(this.player.getClientReact(), block.getClientReact()) && this.failed === false) {
                 this.player.blockCaught(block);
                 block.destroy();
                 this.blocks.splice(index, 1);
                 window.dispatchEvent(new CustomEvent('level:scoreUpdate', { detail: { score: this.scorePerBlock } }));
-                if (this.blocks.length === 0 && this.failed === false) {
+                if (this.blocks.length === 0) {
                     this.destroy('level:success');
                 }
             }
         });
     }
     destroy(eventType) {
-        window.dispatchEvent(new Event(eventType));
         this.timer.destroy();
         this.player.destroy();
+        this.blocks.forEach((block, index) => {
+            block.destroy();
+            this.blocks.splice(index, 1);
+        });
         WindowEventHandler.removeEventListener('timer:done');
+        window.dispatchEvent(new Event(eventType));
         this.el.remove();
     }
 }
@@ -74,6 +78,7 @@ class Block extends DomElement {
         this.height = height;
         this.color = color;
         this.el.style.backgroundColor = this.color;
+        this.el.style.backgroundImage = `linear-gradient(90deg, rgba(2,0,36,1) 0%, ${this.color} 29%, #FFFFFF 100%)`;
         this.el.style.width = `${this.width}px`;
         this.el.style.height = `${this.height}px`;
     }
@@ -177,6 +182,7 @@ class Player extends DomElement {
         this.y = document.documentElement.clientHeight / 2 - this.height / 2;
         this.el.style.width = `${this.width}px`;
         this.el.style.height = `${this.height}px`;
+        this.el.style.borderRadius = `${this.width}px`;
         WindowEventHandler.addEventListener('keydown.player', (e) => this.keyDownHandler(e));
         WindowEventHandler.addEventListener('keyup.player', (e) => this.keyUpHandler(e));
     }
@@ -220,6 +226,7 @@ class Player extends DomElement {
         this.height += this.growthFactor;
         this.el.style.height = `${this.height}px`;
         this.el.style.width = `${this.width}px`;
+        this.el.style.borderRadius = `${this.width}px`;
         this.el.style.backgroundColor = block.color;
     }
     destroy() {

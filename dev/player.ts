@@ -14,6 +14,7 @@ class Player extends DomElement {
 
         this.el.style.width = `${this.width}px`;
         this.el.style.height = `${this.height}px`;
+        this.el.style.borderRadius = `${this.width}px`;
         WindowEventHandler.addEventListener('keydown.player', (e: KeyboardEvent) => this.keyDownHandler(e));
         WindowEventHandler.addEventListener('keyup.player', (e: KeyboardEvent) => this.keyUpHandler(e));
     }
@@ -85,6 +86,7 @@ class Player extends DomElement {
 
         this.el.style.height = `${this.height}px`;
         this.el.style.width = `${this.width}px`;
+        this.el.style.borderRadius = `${this.width}px`;
         this.el.style.backgroundColor = block.color;
     }
 
