@@ -111,10 +111,14 @@ class Game {
     constructor() {
         this.elementsPerLevel = 5;
         this.elementsIncreasePerLevel = 5;
-        this.level = new Level(this.elementsPerLevel);
         this.gui = new GUI();
         this.gameLoop();
-        window.addEventListener('gameover:restart', () => this.startNewLevel());
+        window.addEventListener('game:start:click', () => this.start());
+        ['level:success:click', 'level:failed:click'].map((eventType) => { window.addEventListener(eventType, () => this.startNewLevel()); });
+    }
+    start() {
+        this.level = new Level(this.elementsPerLevel);
+        this.gui.newLevel();
     }
     gameLoop() {
         if (typeof this.level !== 'undefined') {
@@ -132,12 +136,25 @@ class Game {
     }
 }
 window.addEventListener("load", () => new Game());
-class GameOver extends DomElement {
+class GUI extends DomElement {
     constructor() {
-        super('gameover', 0, 0, 'gui');
+        super('gui', 0, 0);
+        this.score = new Score();
+        this.messageScreen = new MessageScreen();
+        window.addEventListener('level:scoreUpdate', (e) => this.score.update(e.detail.score));
+        ['level:success', 'level:failed'].map((eventType) => { window.addEventListener(eventType, (e) => this.messageScreen.show(e.type)); });
+    }
+    newLevel() {
+        this.messageScreen.hide();
+    }
+}
+class MessageScreen extends DomElement {
+    constructor() {
+        super('messagescreen', 0, 0, 'gui');
         this.height = 200;
         this.width = 400;
         this.messages = {
+            'game:start': 'Welcome to Block-o-Block, it\'s time to catch them blocks!<br/><br/>Use your arrow keys to move your player around.',
             'level:success': 'YEAH! Level completed! Click here to proceed to the next level',
             'level:failed': 'AAH! Level failed! Click here to restart this level'
         };
@@ -146,26 +163,16 @@ class GameOver extends DomElement {
         this.el.style.width = `${this.width}px`;
         this.el.style.height = `${this.height}px`;
         this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
-        this.el.addEventListener('click', () => window.dispatchEvent(new Event('gameover:restart')));
+        this.show('game:start');
+        this.el.addEventListener('click', () => window.dispatchEvent(new Event(`${this.currentEvent}:click`)));
     }
     show(type) {
         this.el.innerHTML = this.messages[type];
         this.el.classList.add('show');
+        this.currentEvent = type;
     }
     hide() {
         this.el.classList.remove('show');
-    }
-}
-class GUI extends DomElement {
-    constructor() {
-        super('gui', 0, 0);
-        this.score = new Score();
-        this.gameOver = new GameOver();
-        window.addEventListener('level:scoreUpdate', (e) => this.score.update(e.detail.score));
-        ['level:success', 'level:failed'].map((eventType) => { window.addEventListener(eventType, (e) => this.gameOver.show(e.type)); });
-    }
-    newLevel() {
-        this.gameOver.hide();
     }
 }
 class Player extends DomElement {

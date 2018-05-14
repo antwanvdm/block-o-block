@@ -1,15 +1,20 @@
 class Game {
-    private level: Level;
+    private level!: Level;
     private elementsPerLevel: number = 5;
     private elementsIncreasePerLevel: number = 5;
     private gui: GUI;
 
     constructor() {
-        this.level = new Level(this.elementsPerLevel);
         this.gui = new GUI();
-
         this.gameLoop();
-        window.addEventListener('gameover:restart', () => this.startNewLevel());
+
+        window.addEventListener('game:start:click', () => this.start());
+        ['level:success:click', 'level:failed:click'].map((eventType) => { window.addEventListener(eventType, () => this.startNewLevel()); });
+    }
+
+    private start(){
+        this.level = new Level(this.elementsPerLevel)
+        this.gui.newLevel();
     }
 
     /**

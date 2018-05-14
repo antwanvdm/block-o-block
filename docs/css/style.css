@@ -50,7 +50,7 @@ div {
     text-align: center;
 }
 
-.gameover {
+.messagescreen {
     display: none;
     background-color: #FF0000;
     color: #FFFFFF;
@@ -62,7 +62,7 @@ div {
     flex-direction:column;
 }
 
-.gameover.show {
+.messagescreen.show {
     cursor: pointer;
     display: flex;
 }
