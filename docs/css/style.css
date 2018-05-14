@@ -51,18 +51,19 @@ div {
 
 .messagescreen {
     display: none;
-    background-color: #FF0000;
-    color: #FFFFFF;
+    background-image: repeating-linear-gradient(45deg, yellow, yellow 5px, red 10px, red 40px);
     text-align: center;
     font-weight: bold;
     font-size: 24px;
     justify-content: center;
     align-content: center;
     flex-direction: column;
+    padding: 10px;
+    text-shadow: 1px 1px #000000;
+    box-shadow: #000000;
 }
 
 .messagescreen.show {
-    cursor: pointer;
     display: flex;
 }
 

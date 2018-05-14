@@ -77,10 +77,12 @@ class Block extends DomElement {
         this.width = width;
         this.height = height;
         this.color = color;
-        this.el.style.backgroundColor = this.color;
-        this.el.style.backgroundImage = `linear-gradient(90deg, rgba(2,0,36,1) 0%, ${this.color} 29%, #FFFFFF 100%)`;
+        this.el.style.backgroundImage = `repeating-linear-gradient(${Utils.getRandomInt(0, 360)}deg, #000000, #000000 ${Utils.getRandomInt(2, 10)}px, ${this.color} 10px, ${this.color} ${Utils.getRandomInt(20, 40)}px)`;
         this.el.style.width = `${this.width}px`;
         this.el.style.height = `${this.height}px`;
+        this.x = Utils.getRandomInt(0, (window.outerWidth - this.width));
+        this.y = Utils.getRandomInt(0, (document.documentElement.clientHeight - this.height));
+        this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
     }
     destroy() {
         this.el.remove();
@@ -192,10 +194,10 @@ class MessageScreen extends DomElement {
         this.height = 200;
         this.width = 400;
         this.messages = {
-            'game:start': 'Welcome to Block-o-Block, it\'s time to catch them blocks!<br/><br/>Use your arrow keys to move your player around.',
-            'game:end': 'You made it, your final score is __SCORE__ out of max __MAX_SCORE__ points.<br/><br/>Thanks for playing, you can click to restart the madness',
-            'level:success': 'YEAH! Level completed! Click here to proceed to the next level',
-            'level:failed': 'AAH! Level failed! Click here to restart this level'
+            'game:start': 'Welcome to Block-o-Block, it\'s time to catch them blocks!<br/><br/>Use your arrow keys to move your player around and press space to start.',
+            'game:end': 'You made it, your final score is __SCORE__ out of max __MAX_SCORE__ points.<br/><br/>Thanks for playing, press space to restart the madness',
+            'level:success': 'YEAH! Level completed! Press space to proceed to the next level',
+            'level:failed': 'AAH! Level failed! Press space to restart this level'
         };
         this.x = window.outerWidth / 2 - this.width / 2;
         this.y = document.documentElement.clientHeight / 2 - this.height / 2;
@@ -203,7 +205,11 @@ class MessageScreen extends DomElement {
         this.el.style.height = `${this.height}px`;
         this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
         this.show('game:start');
-        this.el.addEventListener('click', () => window.dispatchEvent(new Event(`${this.currentEvent}:click`)));
+        WindowEventHandler.addEventListener('keyup.messagescreen', (e) => {
+            if (e.keyCode === 32) {
+                window.dispatchEvent(new Event(`${this.currentEvent}:click`));
+            }
+        });
     }
     show(type, replacements = {}) {
         let message = this.messages[type];

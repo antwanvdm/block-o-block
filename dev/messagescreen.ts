@@ -4,10 +4,10 @@ class MessageScreen extends DomElement {
     private currentEvent!: string;
 
     private messages: { [k: string]: string } = {
-        'game:start': 'Welcome to Block-o-Block, it\'s time to catch them blocks!<br/><br/>Use your arrow keys to move your player around.',
-        'game:end': 'You made it, your final score is __SCORE__ out of max __MAX_SCORE__ points.<br/><br/>Thanks for playing, you can click to restart the madness',
-        'level:success': 'YEAH! Level completed! Click here to proceed to the next level',
-        'level:failed': 'AAH! Level failed! Click here to restart this level'
+        'game:start': 'Welcome to Block-o-Block, it\'s time to catch them blocks!<br/><br/>Use your arrow keys to move your player around and press space to start.',
+        'game:end': 'You made it, your final score is __SCORE__ out of max __MAX_SCORE__ points.<br/><br/>Thanks for playing, press space to restart the madness',
+        'level:success': 'YEAH! Level completed! Press space to proceed to the next level',
+        'level:failed': 'AAH! Level failed! Press space to restart this level'
     };
 
     constructor() {
@@ -21,7 +21,11 @@ class MessageScreen extends DomElement {
         this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
 
         this.show('game:start');
-        this.el.addEventListener('click', () => window.dispatchEvent(new Event(`${this.currentEvent}:click`)));
+        WindowEventHandler.addEventListener('keyup.messagescreen', (e: KeyboardEvent) => {
+            if (e.keyCode === 32) {
+                window.dispatchEvent(new Event(`${this.currentEvent}:click`));
+            }
+        });
     }
 
     /**

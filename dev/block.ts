@@ -13,10 +13,13 @@ class Block extends DomElement {
         this.height = height;
         this.color = color;
 
-        this.el.style.backgroundColor = this.color;
-        this.el.style.backgroundImage = `linear-gradient(90deg, rgba(2,0,36,1) 0%, ${this.color} 29%, #FFFFFF 100%)`;
+        this.el.style.backgroundImage = `repeating-linear-gradient(${Utils.getRandomInt(0,360)}deg, #000000, #000000 ${Utils.getRandomInt(2,10)}px, ${this.color} 10px, ${this.color} ${Utils.getRandomInt(20,40)}px)`;
         this.el.style.width = `${this.width}px`;
         this.el.style.height = `${this.height}px`;
+
+        this.x = Utils.getRandomInt(0, (window.outerWidth - this.width));
+        this.y = Utils.getRandomInt(0, (document.documentElement.clientHeight - this.height));
+        this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
     }
 
     /**
