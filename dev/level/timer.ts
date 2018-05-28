@@ -1,4 +1,4 @@
-import DomElement from "./domelement";
+import DomElement from "../helpers/domelement";
 
 export default class Timer extends DomElement {
     seconds: number = 10;

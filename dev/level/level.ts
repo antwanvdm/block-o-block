@@ -1,9 +1,9 @@
-import DomElement from "./domelement";
+import DomElement from "../helpers/domelement";
 import Block from "./block";
 import Player from "./player";
 import Timer from "./timer";
-import Utils from "./utils";
-import WindowEventHandler from "./windoweventhandler";
+import Utils from "../helpers/utils";
+import WindowEventHandler from "../helpers/windoweventhandler";
 
 export default class Level extends DomElement {
     private readonly totalBlocks: number;

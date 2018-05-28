@@ -1,6 +1,6 @@
-import DomElement from "./domelement";
+import DomElement from "../helpers/domelement";
 import Block from "./block";
-import WindowEventHandler from "./windoweventhandler";
+import WindowEventHandler from "../helpers/windoweventhandler";
 
 export default class Player extends DomElement {
     private height: number = 10;

@@ -1,5 +1,5 @@
-import DomElement from './domelement';
-import Utils from "./utils";
+import DomElement from "../helpers/domelement";
+import Utils from "../helpers/utils";
 
 export default class Block extends DomElement {
     private readonly speed: number;

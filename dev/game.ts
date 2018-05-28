@@ -1,5 +1,5 @@
-import GUI from './gui';
-import Level from "./level";
+import GUI from './gui/gui';
+import Level from "./level/level";
 
 export default class Game {
     private level!: Level;

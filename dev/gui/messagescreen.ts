@@ -1,5 +1,5 @@
-import DomElement from "./domelement";
-import WindowEventHandler from "./windoweventhandler";
+import DomElement from "../helpers/domelement";
+import WindowEventHandler from "../helpers/windoweventhandler";
 
 export default class MessageScreen extends DomElement {
     private height: number = 200;

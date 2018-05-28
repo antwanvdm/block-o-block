@@ -1,6 +1,6 @@
 import Score from './score';
 import MessageScreen from './messagescreen';
-import DomElement from "./domelement";
+import DomElement from "../helpers/domelement";
 
 export default class GUI extends DomElement {
     private score: Score;
