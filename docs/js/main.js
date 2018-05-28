@@ -193,6 +193,7 @@ class MessageScreen extends DomElement {
         super('messagescreen', 0, 0, 'gui');
         this.height = 200;
         this.width = 400;
+        this.isActive = false;
         this.messages = {
             'game:start': 'Welcome to Block-o-Block, it\'s time to catch them blocks!<br/><br/>Use your arrow keys to move your player around and press space to start.',
             'game:end': 'You made it, your final score is __SCORE__ out of max __MAX_SCORE__ points.<br/><br/>Thanks for playing, press space to restart the madness',
@@ -206,7 +207,7 @@ class MessageScreen extends DomElement {
         this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
         this.show('game:start');
         WindowEventHandler.addEventListener('keyup.messagescreen', (e) => {
-            if (e.keyCode === 32) {
+            if (e.keyCode === 32 && this.isActive === true) {
                 window.dispatchEvent(new Event(`${this.currentEvent}:click`));
             }
         });
@@ -219,9 +220,11 @@ class MessageScreen extends DomElement {
         this.el.innerHTML = message;
         this.el.classList.add('show');
         this.currentEvent = type;
+        this.isActive = true;
     }
     hide() {
         this.el.classList.remove('show');
+        this.isActive = false;
     }
 }
 class Player extends DomElement {
