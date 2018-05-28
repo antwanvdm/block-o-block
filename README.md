@@ -14,13 +14,31 @@ and I wanted to make sure I mastered the basics. After 1 day my ambitions
 grew and this game will probably get way bigger than ever intended...
 
 ## How to get it running?
-1. Install typescript
-2. Run tsc -w in the root folder
-3. Have a web server running with the /docs folder as root folder
+1. Install typescript with `npm install -g typescript`
+2. Make sure latest versions of node (8.11.2) and npm (5.6.0) are installed
+3. Run `npm install` for the right tools
+4. Run `npm run watch` in the root folder
+5. Have a web server running with the `/docs` folder as root folder
+6. Add the `dev/config.json` file as it isn't part of the git code. Contents
+should look like the following code. You can set the first `dataService` to 
+`false` if configuring mLabs api takes way too much time :-)
+```
+{
+  "functionalities": {
+    "dataService": true
+  },
+  "dataService": {
+    "baseUrl": "https://api.mlab.com/api/1",
+    "apiKey": "",
+    "databaseName": "",
+    "collectionName": ""
+  }
+}
+```
 
 ## Road map
-* Structure the code better. I've started with the simplest setup, but
-off course it needs modules/webpack and a more logical folder structure.
+* ~~Structure the code better. I've started with the simplest setup, but
+off course it needs modules/webpack and a more logical folder structure.~~
 * More interaction in the levels to have a more dynamic feeling, I guess
 the game could get boring now :-)
 * Store scores and show a high score list

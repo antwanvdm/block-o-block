@@ -50,4 +50,11 @@ export default class GUI extends DomElement {
         this.messageScreen.show('game:start');
         this.score.update(0, true);
     }
+
+    /**
+     * @returns {number}
+     */
+    public getScore() {
+        return this.score.get();
+    }
 }

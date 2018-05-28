@@ -1,5 +1,6 @@
 import GUI from './gui/gui';
 import Level from "./level/level";
+import DataService from "./dataservice";
 
 export default class Game {
     private level!: Level;
@@ -10,11 +11,16 @@ export default class Game {
     private scorePerElement: number = 10;
     private readonly maxScore: number;
     private gui: GUI;
+    private dataService: DataService;
 
     constructor() {
         this.gui = new GUI();
         this.maxScore = this.calculateMaxScore();
         this.gameLoop();
+        this.dataService = new DataService();
+        this.dataService.getScores().then((data) => {
+            console.log('Current scores', data);
+        });
 
         ['level:success', 'level:failed'].map((eventType) => {
             window.addEventListener(eventType, (e) => this.update(e.type));
@@ -59,6 +65,7 @@ export default class Game {
         this.currentLevelsPlayed++;
         if (this.currentLevelsPlayed === this.levelsPerGame) {
             this.gui.gameEnd(this.maxScore);
+            this.saveScore();
             return;
         }
 
@@ -86,5 +93,15 @@ export default class Game {
         this.gui.restart();
         this.currentLevelsPlayed = 0;
         this.elementsPerLevel = 5;
+    }
+
+    /**
+     * Call the data service and let it do its magic
+     */
+    private saveScore() {
+        let score = this.gui.getScore();
+        this.dataService.saveScore(score).then((data) => {
+            console.log('Response after saving score', data);
+        });
     }
 }
