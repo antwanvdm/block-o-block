@@ -72,6 +72,20 @@ class Player extends DomElement {
             }
         });
 
+        //Checks to stay in bounds
+        if (this.x < 0) {
+            this.x = 0;
+        }
+        if (this.y < 0) {
+            this.y = 0;
+        }
+        if (this.x > (window.outerWidth - this.width)) {
+            this.x = (window.outerWidth - this.width);
+        }
+        if (this.y > (document.documentElement.clientHeight - this.height)) {
+            this.y = (document.documentElement.clientHeight - this.height);
+        }
+
         this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
     }
 

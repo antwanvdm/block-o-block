@@ -22,11 +22,18 @@ class MessageScreen extends DomElement {
         this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
 
         this.show('game:start');
-        WindowEventHandler.addEventListener('keyup.messagescreen', (e: KeyboardEvent) => {
-            if (e.keyCode === 32 && this.isActive === true) {
-                window.dispatchEvent(new Event(`${this.currentEvent}:click`));
-            }
-        });
+        WindowEventHandler.addEventListener('keyup.messagescreen', (e: KeyboardEvent) => this.keyBoardHandler(e));
+    }
+
+    /**
+     * Handle the spacebar
+     *
+     * @param {KeyboardEvent} e
+     */
+    keyBoardHandler(e: KeyboardEvent) {
+        if (e.keyCode === 32 && this.isActive === true) {
+            window.dispatchEvent(new Event(`${this.currentEvent}:click`));
+        }
     }
 
     /**

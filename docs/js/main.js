@@ -206,11 +206,12 @@ class MessageScreen extends DomElement {
         this.el.style.height = `${this.height}px`;
         this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
         this.show('game:start');
-        WindowEventHandler.addEventListener('keyup.messagescreen', (e) => {
-            if (e.keyCode === 32 && this.isActive === true) {
-                window.dispatchEvent(new Event(`${this.currentEvent}:click`));
-            }
-        });
+        WindowEventHandler.addEventListener('keyup.messagescreen', (e) => this.keyBoardHandler(e));
+    }
+    keyBoardHandler(e) {
+        if (e.keyCode === 32 && this.isActive === true) {
+            window.dispatchEvent(new Event(`${this.currentEvent}:click`));
+        }
     }
     show(type, replacements = {}) {
         let message = this.messages[type];
@@ -277,6 +278,18 @@ class Player extends DomElement {
                     return;
             }
         });
+        if (this.x < 0) {
+            this.x = 0;
+        }
+        if (this.y < 0) {
+            this.y = 0;
+        }
+        if (this.x > (window.outerWidth - this.width)) {
+            this.x = (window.outerWidth - this.width);
+        }
+        if (this.y > (document.documentElement.clientHeight - this.height)) {
+            this.y = (document.documentElement.clientHeight - this.height);
+        }
         this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
     }
     blockCaught(block) {
