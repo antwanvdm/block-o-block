@@ -47,6 +47,7 @@ export default class GUI extends DomElement {
      * Triggered when we need to restart, go to first screen and set score to 0
      */
     public restart() {
+        this.messageScreen.hide();
         this.messageScreen.show('game:start');
         this.score.update(0, true);
     }

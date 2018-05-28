@@ -13,15 +13,18 @@ export default class DomElement {
             throw new Error("<main> element doesn't exist!");
         }
 
-        this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
-        this.el.classList.add(type);
+        //-1 check is to let CSS do its own job @todo cleaner solution?
+        if (this.x > -1 && this.y > -1) {
+            this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
+        }
+        this.el.classList.add(`game-${type}`);
 
         if (parentClass === '') {
             main.appendChild(this.el);
         } else {
-            let parentEl = document.querySelector(`.${parentClass}`);
+            let parentEl = document.querySelector(`.game-${parentClass}`);
             if (parentEl === null) {
-                throw new Error(`<.${parentClass}> element doesn't exist!`);
+                throw new Error(`<.game-${parentClass}> element doesn't exist!`);
             }
             parentEl.appendChild(this.el);
         }

@@ -5,8 +5,11 @@ export default class Timer extends DomElement {
     intervalId: number;
 
     constructor() {
-        super('timer', 10, 40, 'level');
-        this.el.innerHTML = `time: ${this.seconds}`;
+        super('timer', -1, -1, 'level');
+
+        this.renderTemplate();
+        this.el.classList.add('message', 'is-primary');
+        this.el.querySelector('.message-body').innerHTML = `time: ${this.seconds}`;
 
         this.intervalId = setInterval(() => this.update(), 1000);
     }
@@ -16,7 +19,7 @@ export default class Timer extends DomElement {
      */
     private update() {
         this.seconds--;
-        this.el.innerHTML = `time: ${this.seconds}`;
+        this.el.querySelector('.message-body').innerHTML = `time: ${this.seconds}`;
 
         if (this.seconds === 0) {
             window.dispatchEvent(new Event('timer:done'));
@@ -25,5 +28,14 @@ export default class Timer extends DomElement {
 
     public destroy() {
         clearInterval(this.intervalId);
+    }
+
+    /**
+     * Template needed to show more elements
+     */
+    private renderTemplate() {
+        this.el.innerHTML = `
+            <div class="message-body"></div>
+        `;
     }
 }

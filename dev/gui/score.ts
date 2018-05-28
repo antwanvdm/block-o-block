@@ -4,8 +4,11 @@ export default class Score extends DomElement {
     private score: number = 0;
 
     constructor() {
-        super('score', 10, 10, 'gui');
-        this.el.innerHTML = `score: ${this.score.toString()}`;
+        super('score', -1, -1, 'gui');
+
+        this.renderTemplate();
+        this.el.querySelector('.message-body').innerHTML = `score: ${this.score.toString()}`;
+        this.el.classList.add('message', 'is-warning');
     }
 
     /**
@@ -25,6 +28,15 @@ export default class Score extends DomElement {
      */
     public update(score: number, reset: boolean = false) {
         this.score = reset ? score : this.score + score;
-        this.el.innerHTML = `score: ${this.score.toString()}`;
+        this.el.querySelector('.message-body').innerHTML = `score: ${this.score.toString()}`;
+    }
+
+    /**
+     * Template needed to show more elements
+     */
+    private renderTemplate() {
+        this.el.innerHTML = `
+            <div class="message-body"></div>
+        `;
     }
 }

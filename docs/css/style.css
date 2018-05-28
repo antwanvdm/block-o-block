@@ -10,61 +10,54 @@ body, html {
     box-sizing: border-box;
 }
 
-main {
-    position: relative;
-}
-
 div {
     display: block;
-    position: absolute;
     transform: translateZ(0);
 }
 
-.block {
-    cursor: pointer;
+.game-block {
+    position: fixed;
 }
 
-.player {
+.game-player {
+    position: fixed;
     background-color: #000000;
     animation: pulse 2s infinite;
 }
 
-.timer {
-    position: relative;
+.game-timer {
+    position: fixed;
     font-size: 20px;
-    padding: 5px;
-    text-align: center;
+    top: 10px;
+    right: 10px;
 }
 
-.gui {
+.game-timer .message-body {
+    padding: 0.5em 0.5em;
+}
+
+.game-gui {
     z-index: 2;
 }
 
-.score {
-    position: relative;
-    background-color: #000000;
-    color: #FFFFFF;
+.game-score {
+    position: fixed;
     font-size: 20px;
-    padding: 5px;
-    text-align: center;
+    top: 10px;
+    left: 10px;
 }
 
-.messagescreen {
+.game-score .message-body {
+    padding: 0.5em 0.5em;
+}
+
+.game-messagescreen {
     display: none;
-    background-image: repeating-linear-gradient(45deg, yellow, yellow 1px, red 2px, red 40px);
-    text-align: center;
-    font-weight: bold;
-    font-size: 24px;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;
-    padding: 10px;
-    text-shadow: 1px 1px #000000;
-    box-shadow: #000000;
+    position: fixed;
 }
 
-.messagescreen.show {
-    display: flex;
+.game-messagescreen.show {
+    display: block;
 }
 
 @-webkit-keyframes pulse {
