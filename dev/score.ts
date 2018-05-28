@@ -1,4 +1,6 @@
-class Score extends DomElement {
+import DomElement from "./domelement";
+
+export default class Score extends DomElement {
     private score: number = 0;
 
     constructor() {

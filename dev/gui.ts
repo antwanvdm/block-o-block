@@ -1,4 +1,8 @@
-class GUI extends DomElement {
+import Score from './score';
+import MessageScreen from './messagescreen';
+import DomElement from "./domelement";
+
+export default class GUI extends DomElement {
     private score: Score;
     private messageScreen: MessageScreen;
 

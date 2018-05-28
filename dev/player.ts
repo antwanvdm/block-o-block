@@ -1,4 +1,8 @@
-class Player extends DomElement {
+import DomElement from "./domelement";
+import Block from "./block";
+import WindowEventHandler from "./windoweventhandler";
+
+export default class Player extends DomElement {
     private height: number = 10;
     private width: number = 10;
     private growthFactor: number = 1.5;

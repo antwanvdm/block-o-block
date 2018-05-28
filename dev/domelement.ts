@@ -1,4 +1,4 @@
-class DomElement {
+export default class DomElement {
     protected el: HTMLElement;
     protected x: number;
     protected y: number;

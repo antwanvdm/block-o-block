@@ -1,4 +1,4 @@
-class WindowEventHandler {
+export default class WindowEventHandler {
     private static functionMap: { [k: string]: any } = {};
 
     public static addEventListener(event: string, func: any) {

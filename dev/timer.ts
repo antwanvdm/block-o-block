@@ -1,4 +1,6 @@
-class Timer extends DomElement {
+import DomElement from "./domelement";
+
+export default class Timer extends DomElement {
     seconds: number = 10;
     intervalId: number;
 

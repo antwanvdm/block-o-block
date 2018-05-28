@@ -1,4 +1,7 @@
-class MessageScreen extends DomElement {
+import DomElement from "./domelement";
+import WindowEventHandler from "./windoweventhandler";
+
+export default class MessageScreen extends DomElement {
     private height: number = 200;
     private width: number = 400;
     private currentEvent!: string;

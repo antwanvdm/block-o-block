@@ -1,4 +1,7 @@
-class Game {
+import GUI from './gui';
+import Level from "./level";
+
+export default class Game {
     private level!: Level;
     private levelsPerGame: number = 10;
     private currentLevelsPlayed: number = 0;
@@ -85,5 +88,3 @@ class Game {
         this.elementsPerLevel = 5;
     }
 }
-
-window.addEventListener("load", () => new Game());

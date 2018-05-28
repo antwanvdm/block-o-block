@@ -1,4 +1,11 @@
-class Level extends DomElement {
+import DomElement from "./domelement";
+import Block from "./block";
+import Player from "./player";
+import Timer from "./timer";
+import Utils from "./utils";
+import WindowEventHandler from "./windoweventhandler";
+
+export default class Level extends DomElement {
     private readonly totalBlocks: number;
     private readonly scorePerBlock: number;
     private blocks: Block[] = [];

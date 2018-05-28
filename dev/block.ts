@@ -1,4 +1,7 @@
-class Block extends DomElement {
+import DomElement from './domelement';
+import Utils from "./utils";
+
+export default class Block extends DomElement {
     private readonly speed: number;
     private readonly width: number;
     private readonly height: number;
