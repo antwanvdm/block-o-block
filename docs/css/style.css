@@ -30,10 +30,15 @@ div {
     font-size: 20px;
     top: 10px;
     right: 10px;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, .5);
 }
 
 .game-timer .message-body {
     padding: 0.5em 0.5em;
+}
+
+.game-timer .message-body .seconds {
+    font-weight: bold;
 }
 
 .game-gui {
@@ -45,15 +50,21 @@ div {
     font-size: 20px;
     top: 10px;
     left: 10px;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, .5);
 }
 
 .game-score .message-body {
     padding: 0.5em 0.5em;
 }
 
+.game-score .message-body .score-count {
+    font-weight: bold;
+}
+
 .game-messagescreen {
     display: none;
     position: fixed;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, .5);
 }
 
 .game-messagescreen.show {

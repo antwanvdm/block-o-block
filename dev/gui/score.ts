@@ -7,7 +7,7 @@ export default class Score extends DomElement {
         super('score', -1, -1, 'gui');
 
         this.renderTemplate();
-        this.el.querySelector('.message-body').innerHTML = `score: ${this.score.toString()}`;
+        this.el.querySelector('.score-count').innerHTML = this.score.toString();
         this.el.classList.add('message', 'is-warning');
     }
 
@@ -28,7 +28,7 @@ export default class Score extends DomElement {
      */
     public update(score: number, reset: boolean = false) {
         this.score = reset ? score : this.score + score;
-        this.el.querySelector('.message-body').innerHTML = `score: ${this.score.toString()}`;
+        this.el.querySelector('.score-count').innerHTML = this.score.toString();
     }
 
     /**
@@ -36,7 +36,10 @@ export default class Score extends DomElement {
      */
     private renderTemplate() {
         this.el.innerHTML = `
-            <div class="message-body"></div>
+            <div class="message-body">
+                <span>score: </span>
+                <span class="score-count"></span>
+            </div>
         `;
     }
 }
