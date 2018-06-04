@@ -1,3 +1,4 @@
+import config from '../config.json';
 import DomElement from "../helpers/domelement";
 import Block from "./block";
 import WindowEventHandler from "../helpers/windoweventhandler";
@@ -5,9 +6,9 @@ import WindowEventHandler from "../helpers/windoweventhandler";
 export default class Player extends DomElement {
     private height: number = 10;
     private width: number = 10;
-    private growthFactor: number = 1.5;
-    private speed: number = 2;
-    private speedIncreaseFactor: number = 0.2;
+    private growthFactor: number = config.game.player.growthFactor;
+    private speed: number = config.game.player.speed;
+    private speedIncreaseFactor: number = config.game.player.speedIncreaseFactor;
     private keysAllowed: number[] = [37, 38, 39, 40];
     private keysPressed: number[] = [];
 

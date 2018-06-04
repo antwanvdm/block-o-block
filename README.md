@@ -24,6 +24,26 @@ should look like the following code. You can set the first `dataService` to
 `false` if configuring mLabs api takes way too much time :-)
 ```
 {
+  "game": {
+    "levelsPerGame": 10,
+    "startElementsPerLevel": 5,
+    "elementsIncreasePerLevel": 5,
+    "scorePerElement": 10,
+    "secondsPerLevel": 10,
+    "blockSpeed": {
+      "min": 1,
+      "max": 5
+    },
+    "blockPixels": {
+      "min": 10,
+      "max": 250
+    },
+    "player": {
+      "growthFactor": 1.5,
+      "speed": 2,
+      "speedIncreaseFactor": 0.2
+    }
+  },
   "functionalities": {
     "dataService": true
   },

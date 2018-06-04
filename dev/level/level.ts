@@ -1,3 +1,4 @@
+import config from '../config.json';
 import DomElement from "../helpers/domelement";
 import Block from "./block";
 import Player from "./player";
@@ -22,7 +23,7 @@ export default class Level extends DomElement {
         this.timer = new Timer();
 
         for (let i = 0; i < this.totalBlocks; i++) {
-            this.blocks.push(new Block(Utils.getRandomColor(), Utils.getRandomInt(1, 5), Utils.getRandomInt(10, 150), Utils.getRandomInt(10, 150)));
+            this.blocks.push(new Block(Utils.getRandomColor(), Utils.getRandomInt(config.game.blockSpeed.min, config.game.blockSpeed.max), Utils.getRandomInt(config.game.blockPixels.min, config.game.blockPixels.max), Utils.getRandomInt(config.game.blockPixels.min, config.game.blockPixels.max)));
         }
 
         WindowEventHandler.addEventListener('timer:done', () => {

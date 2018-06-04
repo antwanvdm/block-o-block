@@ -1,14 +1,15 @@
+import config from './config.json';
 import GUI from './gui/gui';
 import Level from "./level/level";
 import DataService from "./dataservice";
 
 export default class Game {
     private level!: Level;
-    private levelsPerGame: number = 10;
+    private levelsPerGame: number = config.game.levelsPerGame;
     private currentLevelsPlayed: number = 0;
-    private elementsPerLevel: number = 5;
-    private elementsIncreasePerLevel: number = 5;
-    private scorePerElement: number = 10;
+    private startElementsPerLevel: number = config.game.startElementsPerLevel;
+    private elementsIncreasePerLevel: number = config.game.elementsIncreasePerLevel;
+    private scorePerElement: number = config.game.scorePerElement;
     private readonly maxScore: number;
     private gui: GUI;
     private dataService: DataService;
@@ -37,7 +38,7 @@ export default class Game {
     private calculateMaxScore() {
         let maxScore = 0;
         for (let i = 0; i < this.levelsPerGame; i++) {
-            let elements = this.elementsPerLevel + (i === 0 ? 0 : (this.elementsIncreasePerLevel * i));
+            let elements = this.startElementsPerLevel + (i === 0 ? 0 : (this.elementsIncreasePerLevel * i));
             maxScore += (elements * this.scorePerElement);
         }
         return maxScore;
@@ -74,13 +75,13 @@ export default class Game {
      */
     private startNewLevel() {
         if (this.level && this.level.failed === false) {
-            this.elementsPerLevel += this.elementsIncreasePerLevel;
+            this.startElementsPerLevel += this.elementsIncreasePerLevel;
         }
 
         delete this.level;
         this.gui.newLevel();
 
-        this.level = new Level(this.elementsPerLevel, this.scorePerElement);
+        this.level = new Level(this.startElementsPerLevel, this.scorePerElement);
     }
 
     /**
@@ -89,7 +90,7 @@ export default class Game {
     private restart() {
         this.gui.restart();
         this.currentLevelsPlayed = 0;
-        this.elementsPerLevel = 5;
+        this.startElementsPerLevel = config.game.startElementsPerLevel;
     }
 
     /**

@@ -1,7 +1,8 @@
+import config from '../config.json';
 import DomElement from "../helpers/domelement";
 
 export default class Timer extends DomElement {
-    seconds: number = 10;
+    seconds: number = config.game.secondsPerLevel;
     intervalId: number;
 
     constructor() {
