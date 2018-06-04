@@ -10,19 +10,16 @@ body, html {
     box-sizing: border-box;
 }
 
-div {
-    display: block;
-    transform: translateZ(0);
-}
-
 .game-block {
     position: fixed;
+    transform: translateZ(0);
 }
 
 .game-player {
     position: fixed;
     background-color: #000000;
     animation: pulse 2s infinite;
+    transform: translateZ(0);
 }
 
 .game-timer {
@@ -64,10 +61,30 @@ div {
 .game-messagescreen {
     display: none;
     position: fixed;
+    width: 350px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     box-shadow: 1px 2px 10px rgba(0, 0, 0, .5);
 }
 
 .game-messagescreen.show {
+    display: block;
+}
+
+.game-highscorelist {
+    display: none;
+    top: 50%;
+    left: 50%;
+    max-height: 300px;
+    transform: translate(-50%, -50%);
+    overflow-y: scroll;
+    z-index: 10;
+    position: fixed;
+    box-shadow: 1px 2px 10px rgba(0, 0, 0, .5);
+}
+
+.game-highscorelist.show {
     display: block;
 }
 

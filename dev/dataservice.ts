@@ -38,7 +38,7 @@ export default class DataService {
             return this.disabled();
         }
 
-        let url = `${config.dataService.baseUrl}${this.endPointList}`;
+        let url = `${config.dataService.baseUrl}${this.endPointList}&s={"score": -1}&l=10`;
         return fetch(url, {
             mode: 'cors'
         }).then(response => response.json());

@@ -2,20 +2,18 @@ import DomElement from "../helpers/domelement";
 import WindowEventHandler from "../helpers/windoweventhandler";
 
 export default class MessageScreen extends DomElement {
-    private height: number = 200;
-    private width: number = 400;
     private currentEvent!: string;
     private isActive: boolean = false;
 
     private messages: { [k: string]: { 'header': string, 'body': string, 'className': string } } = {
         'game:start': {
             'header': 'Welcome to Block-o-Block!',
-            'body': 'It\'s time to catch them blocks!<br/><br/>Use your arrow keys to move your player around and press space to start.',
+            'body': 'It\'s time to catch them blocks!<br/><br/>Use your arrow keys to move your player around and press space to start.<br/><br/>Press -<strong>H</strong>- to view the highscore list',
             'className': 'is-info'
         },
         'game:end': {
             'header': 'Your game is over!',
-            'body': 'You made it, your final score is __SCORE__ out of max __MAX_SCORE__ points.<br/><br/>Thanks for playing, press space to restart the madness',
+            'body': 'You made it, your final score is __SCORE__ out of max __MAX_SCORE__ points.<br/><br/>Thanks for playing, press space to restart the madness.<br/><br/>Press -<strong>H</strong>- to view the highscore list',
             'className': 'is-success'
         },
         'level:success': {
@@ -31,14 +29,8 @@ export default class MessageScreen extends DomElement {
     };
 
     constructor() {
-        super('messagescreen', 0, 0, 'gui');
-
-        this.x = window.outerWidth / 2 - this.width / 2;
-        this.y = document.documentElement.clientHeight / 2 - this.height / 2;
-
+        super('messagescreen', -1, -1, 'gui');
         this.el.classList.add('message');
-        this.el.style.width = `${this.width}px`;
-        this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
 
         this.renderTemplate();
         this.show('game:start');

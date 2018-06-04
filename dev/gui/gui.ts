@@ -1,18 +1,42 @@
 import Score from './score';
 import MessageScreen from './messagescreen';
 import DomElement from "../helpers/domelement";
+import HighScoreList from "./highscorelist";
+import WindowEventHandler from "../helpers/windoweventhandler";
+import config from '../config.json';
 
 export default class GUI extends DomElement {
     private score: Score;
     private messageScreen: MessageScreen;
+    private highScoreList: HighScoreList;
+    private highScoreListVisible: boolean = false;
 
     constructor() {
-        super('gui', 0, 0);
+        super('gui', -1, -1);
 
         this.score = new Score();
         this.messageScreen = new MessageScreen();
-
         window.addEventListener('level:scoreUpdate', (e) => this.score.update((e as CustomEvent).detail.score));
+
+        if (config.functionalities.dataService === true) {
+            this.highScoreList = new HighScoreList();
+            WindowEventHandler.addEventListener('keyup.highscorelist', (e: KeyboardEvent) => this.keyBoardHandler(e));
+        }
+    }
+
+    /**
+     * Handle the spacebar
+     *
+     * @param {KeyboardEvent} e
+     */
+    keyBoardHandler(e: KeyboardEvent) {
+        if (e.keyCode === 72 && this.highScoreListVisible === false) {
+            this.highScoreListVisible = true;
+            this.highScoreList.show();
+        } else if (e.keyCode === 27 && this.highScoreListVisible === true) {
+            this.highScoreListVisible = false;
+            this.highScoreList.hide();
+        }
     }
 
     /**

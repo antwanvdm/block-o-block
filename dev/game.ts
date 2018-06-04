@@ -18,9 +18,6 @@ export default class Game {
         this.maxScore = this.calculateMaxScore();
         this.gameLoop();
         this.dataService = new DataService();
-        this.dataService.getScores().then((data) => {
-            console.log('Current scores', data);
-        });
 
         ['level:success', 'level:failed'].map((eventType) => {
             window.addEventListener(eventType, (e) => this.update(e.type));
