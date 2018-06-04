@@ -13,7 +13,7 @@ export default class HighScoreList extends DomElement {
     }
 
     /**
-     * Show the highscore list
+     * Show the high score list
      */
     public show() {
         this.dataService.getScores().then((data) => {
@@ -31,7 +31,7 @@ export default class HighScoreList extends DomElement {
     }
 
     /**
-     * Return te looped
+     * Return the mapped HTML <tr> list for appending in <tbody>
      *
      * @param {[{}]} data
      * @returns {string}
@@ -48,8 +48,6 @@ export default class HighScoreList extends DomElement {
 
     /**
      * Template needed to show more elements
-     *
-     * @param tBody
      */
     private renderTemplate() {
         this.el.innerHTML = `
