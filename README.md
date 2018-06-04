@@ -60,8 +60,9 @@ should look like the following code. You can set the first `dataService` to
 * ~~Structure the code better. I've started with the simplest setup, but
 off course it needs modules/webpack and a more logical folder structure.~~
 * ~~Better styling with some CSS framework~~
+* ~~Store scores and show a high score list~~
+* Update the high score logic with local storage and entering your name
 * More interaction in the levels to have a more dynamic feeling, I guess
 the game could get boring now :-)
-* ~~Store scores~~ and show a high score list
 * Maybe translate the DOM element to Canvas elements, because it will
 probably perform better in the end
