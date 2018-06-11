@@ -13,6 +13,10 @@ Pretty ease, my students are working on a Typescript game as we speak,
 and I wanted to make sure I mastered the basics. After 1 day my ambitions
 grew and this game will probably get way bigger than ever intended...
 
+## Live demo
+Thanks to the wonderful feature 'Github live pages' you can check the
+live demo here: https://antwanvdm.github.io/block-o-block/docs/
+
 ## How to get it running?
 1. Install typescript with `npm install -g typescript`
 2. Make sure latest versions of node (8.11.2) and npm (5.6.0) are installed
