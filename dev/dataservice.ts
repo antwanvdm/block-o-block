@@ -39,10 +39,23 @@ export default class DataService {
             return this.disabled();
         }
 
+        if (window.navigator.onLine === false) {
+            return new Promise((resolve) => {
+                resolve(JSON.parse(localStorage.getItem('scores')));
+            });
+        }
+
         let url = `${config.dataService.baseUrl}${this.endPointList}&s={"score": -1}&l=10`;
         return fetch(url, {
             mode: 'cors'
-        }).then(response => response.json());
+        }).then(response => response.json()).then((data) => {
+            if (localStorage.getItem('scores') === JSON.stringify(data)) {
+                return JSON.parse(localStorage.getItem('scores'));
+            } else {
+                localStorage.setItem('scores', JSON.stringify(data));
+                return data;
+            }
+        });
     }
 
     /**

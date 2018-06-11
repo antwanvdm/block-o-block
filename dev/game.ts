@@ -32,7 +32,7 @@ export default class Game {
     /**
      * Calculate the score with available parameters
      *
-     * @todo Do I really need to to this so inefficient..?
+     * @todo Do I really need to do this so inefficient..?
      * @returns {number}
      */
     private calculateMaxScore(): number {
@@ -99,7 +99,7 @@ export default class Game {
     private saveScore(): void {
         let score = this.gui.getScore();
         this.dataService.saveScore(score).then((data) => {
-            console.log('Response after saving score', data);
+            window.dispatchEvent(new CustomEvent('game:scoreSaved', {detail: {data}}));
         });
     }
 }
