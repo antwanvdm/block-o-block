@@ -15,7 +15,7 @@ grew and this game will probably get way bigger than ever intended...
 
 ## Live demo
 Thanks to the wonderful feature 'Github live pages' you can check the live
-demo here: [Check it out!](https://antwanvdm.github.io/block-o-block/docs/)
+demo here: [Check it out!](https://antwanvdm.github.io/block-o-block/)
 
 ## How to get it running?
 1. Install typescript with `npm install -g typescript`
