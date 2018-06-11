@@ -4,7 +4,7 @@ import Level from "./level/level";
 import DataService from "./dataservice";
 
 export default class Game {
-    private level!: Level;
+    private level: Level;
     private levelsPerGame: number = config.game.levelsPerGame;
     private currentLevelsPlayed: number = 0;
     private startElementsPerLevel: number = config.game.startElementsPerLevel;
@@ -91,6 +91,7 @@ export default class Game {
         this.gui.restart();
         this.currentLevelsPlayed = 0;
         this.startElementsPerLevel = config.game.startElementsPerLevel;
+        delete this.level;
     }
 
     /**
