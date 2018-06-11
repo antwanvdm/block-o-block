@@ -67,7 +67,7 @@ export default class Game {
             return;
         }
 
-        this.gui.levelDone(type);
+        this.gui.show(type);
     }
 
     /**
@@ -79,7 +79,7 @@ export default class Game {
         }
 
         delete this.level;
-        this.gui.newLevel();
+        this.gui.hide();
 
         this.level = new Level(this.startElementsPerLevel, this.scorePerElement);
     }

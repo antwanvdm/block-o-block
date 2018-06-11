@@ -42,14 +42,14 @@ export default class GUI extends DomElement {
      *
      * @param {string} type
      */
-    public levelDone(type: string): void {
+    public show(type: string): void {
         this.messageScreen.show(type);
     }
 
     /**
      * Triggered when a new level starts
      */
-    public newLevel(): void {
+    public hide(): void {
         this.messageScreen.hide();
     }
 
