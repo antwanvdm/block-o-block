@@ -30,10 +30,11 @@ export default class GUI extends DomElement {
      * @param {KeyboardEvent} e
      */
     keyBoardHandler(e: KeyboardEvent) {
-        if (e.keyCode === 72 && this.highScoreListVisible === false) {
+        let key = e.key.toLowerCase();
+        if (key === 'h' && this.highScoreListVisible === false) {
             this.highScoreListVisible = true;
             this.highScoreList.show();
-        } else if (e.keyCode === 27 && this.highScoreListVisible === true) {
+        } else if (key === 'escape' && this.highScoreListVisible === true) {
             this.highScoreListVisible = false;
             this.highScoreList.hide();
         }

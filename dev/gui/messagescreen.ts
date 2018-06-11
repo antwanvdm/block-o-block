@@ -43,7 +43,7 @@ export default class MessageScreen extends DomElement {
      * @param {KeyboardEvent} e
      */
     keyBoardHandler(e: KeyboardEvent) {
-        if (e.keyCode === 32 && this.isActive === true) {
+        if (e.key === ' ' && this.isActive === true) {
             window.dispatchEvent(new Event(`${this.currentEvent}:click`));
         }
     }

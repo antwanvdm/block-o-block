@@ -9,8 +9,8 @@ export default class Player extends DomElement {
     private growthFactor: number = config.game.player.growthFactor;
     private speed: number = config.game.player.speed;
     private speedIncreaseFactor: number = config.game.player.speedIncreaseFactor;
-    private keysAllowed: number[] = [37, 38, 39, 40];
-    private keysPressed: number[] = [];
+    private keysAllowed: string[] = ['arrowleft', 'arrowup', 'arrowright', 'arrowdown'];
+    private keysPressed: string[] = [];
 
     constructor() {
         super('player', 0, 0, 'level');
@@ -31,7 +31,7 @@ export default class Player extends DomElement {
      * @param e
      */
     private keyDownHandler(e: KeyboardEvent) {
-        let key = e.keyCode;
+        let key = e.key.toLowerCase();
         if (this.keysAllowed.indexOf(key) > -1 && this.keysPressed.indexOf(key) === -1) {
             this.keysPressed.push(key);
         }
@@ -43,7 +43,7 @@ export default class Player extends DomElement {
      * @param e
      */
     private keyUpHandler(e: KeyboardEvent) {
-        let key = e.keyCode;
+        let key = e.key.toLowerCase();
         let keyPressedPosition = this.keysPressed.indexOf(key);
         if (this.keysAllowed.indexOf(key) > -1 && keyPressedPosition > -1) {
             this.keysPressed.splice(keyPressedPosition, 1);
@@ -56,19 +56,19 @@ export default class Player extends DomElement {
     public update() {
         this.keysPressed.forEach((key) => {
             switch (key) {
-                case 37:
+                case 'arrowleft':
                     this.x -= this.speed;
                     break;
 
-                case 38:
+                case 'arrowup':
                     this.y -= this.speed;
                     break;
 
-                case 39:
+                case 'arrowright':
                     this.x += this.speed;
                     break;
 
-                case 40:
+                case 'arrowdown':
                     this.y += this.speed;
                     break;
 
