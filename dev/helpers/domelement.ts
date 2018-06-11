@@ -3,6 +3,12 @@ export default class DomElement {
     protected x: number;
     protected y: number;
 
+    /**
+     * @param {string} type
+     * @param {number} x
+     * @param {number} y
+     * @param {string} parentClass
+     */
     constructor(type: string, x: number, y: number, parentClass: string = '') {
         this.x = x;
         this.y = y;

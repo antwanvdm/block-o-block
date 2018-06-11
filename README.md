@@ -20,8 +20,8 @@ grew and this game will probably get way bigger than ever intended...
 4. Run `npm run watch` in the root folder
 5. Have a web server running with the `/docs` folder as root folder
 6. Add the `dev/config.json` file as it isn't part of the git code. Contents
-should look like the following code. You can set the first `dataService` to 
-`false` if configuring mLabs api takes way too much time :-)
+should look like the following code. You can set the `mLab` property to 
+`false` if configuring the mLab api takes way too much time :-)
 ```
 {
   "game": {
@@ -45,9 +45,9 @@ should look like the following code. You can set the first `dataService` to
     }
   },
   "functionalities": {
-    "dataService": true
+    "mLab": true
   },
-  "dataService": {
+  "mLab": {
     "baseUrl": "https://api.mlab.com/api/1",
     "apiKey": "",
     "databaseName": "",

@@ -3,7 +3,6 @@ import MessageScreen from './messagescreen';
 import DomElement from "../helpers/domelement";
 import HighScoreList from "./highscorelist";
 import WindowEventHandler from "../helpers/windoweventhandler";
-import config from '../config.json';
 
 export default class GUI extends DomElement {
     private score: Score;
@@ -18,10 +17,8 @@ export default class GUI extends DomElement {
         this.messageScreen = new MessageScreen();
         window.addEventListener('level:scoreUpdate', (e) => this.score.update((e as CustomEvent).detail.score));
 
-        if (config.functionalities.dataService === true) {
-            this.highScoreList = new HighScoreList();
-            WindowEventHandler.addEventListener('keyup.highscorelist', (e: KeyboardEvent) => this.keyBoardHandler(e));
-        }
+        this.highScoreList = new HighScoreList();
+        WindowEventHandler.addEventListener('keyup.highscorelist', (e: KeyboardEvent) => this.keyBoardHandler(e));
     }
 
     /**

@@ -13,7 +13,7 @@ export default class HighScoreList extends DomElement {
         this.renderTemplate();
         this.tBody = this.el.querySelector('.tbody');
 
-        this.dataService = new DataService();
+        this.dataService = DataService.getInstance();
         this.loadScoreData();
 
         window.addEventListener('game:scoreSaved', (e) => this.updateData((e as CustomEvent).detail.data));

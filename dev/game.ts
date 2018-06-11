@@ -18,7 +18,7 @@ export default class Game {
         this.gui = new GUI();
         this.maxScore = this.calculateMaxScore();
         this.gameLoop();
-        this.dataService = new DataService();
+        this.dataService = DataService.getInstance();
 
         ['level:success', 'level:failed'].map((eventType) => {
             window.addEventListener(eventType, (e) => this.update(e.type));
@@ -99,7 +99,9 @@ export default class Game {
     private saveScore(): void {
         let score = this.gui.getScore();
         this.dataService.saveScore(score).then((data) => {
-            window.dispatchEvent(new CustomEvent('game:scoreSaved', {detail: {data}}));
+            if (typeof data.error === 'undefined') {
+                window.dispatchEvent(new CustomEvent('game:scoreSaved', {detail: {data}}));
+            }
         });
     }
 }
