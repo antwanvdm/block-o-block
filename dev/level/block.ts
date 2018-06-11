@@ -16,7 +16,7 @@ export default class Block extends DomElement {
         this.height = height;
         this.color = color;
 
-        this.el.style.backgroundImage = `repeating-linear-gradient(${Utils.getRandomInt(0,360)}deg, #000000, #000000 ${Utils.getRandomInt(2,10)}px, ${this.color} 10px, ${this.color} ${Utils.getRandomInt(20,40)}px)`;
+        this.el.style.backgroundImage = `repeating-linear-gradient(${Utils.getRandomInt(0, 360)}deg, #000000, #000000 ${Utils.getRandomInt(2, 10)}px, ${this.color} 10px, ${this.color} ${Utils.getRandomInt(20, 40)}px)`;
         this.el.style.width = `${this.width}px`;
         this.el.style.height = `${this.height}px`;
 

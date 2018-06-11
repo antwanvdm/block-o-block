@@ -3,7 +3,7 @@ import config from './config.json';
 export default class DataService {
     private endPointList: string = `/databases/${config.dataService.databaseName}/collections/${config.dataService.collectionName}?apiKey=${config.dataService.apiKey}`;
     private endPointSave: string = `/databases/${config.dataService.databaseName}/collections/${config.dataService.collectionName}?apiKey=${config.dataService.apiKey}`;
-    private disabledMessage:string = 'Dataservice is disabled';
+    private disabledMessage: string = 'Dataservice is disabled';
 
     /**
      * Store the latest score in the DB
