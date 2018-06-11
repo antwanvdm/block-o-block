@@ -35,7 +35,7 @@ export default class Game {
      * @todo Do I really need to to this so inefficient..?
      * @returns {number}
      */
-    private calculateMaxScore() {
+    private calculateMaxScore(): number {
         let maxScore = 0;
         for (let i = 0; i < this.levelsPerGame; i++) {
             let elements = this.startElementsPerLevel + (i === 0 ? 0 : (this.elementsIncreasePerLevel * i));
@@ -47,7 +47,7 @@ export default class Game {
     /**
      * The only place for a requestAnimationFrame
      */
-    private gameLoop() {
+    private gameLoop(): void {
         if (typeof this.level !== 'undefined') {
             this.level.update();
         }
@@ -59,7 +59,7 @@ export default class Game {
      *
      * @param {string} type
      */
-    private update(type: string) {
+    private update(type: string): void {
         this.currentLevelsPlayed++;
         if (this.currentLevelsPlayed === this.levelsPerGame) {
             this.gui.gameEnd(this.maxScore);
@@ -73,7 +73,7 @@ export default class Game {
     /**
      * Time to start a new level with madness
      */
-    private startNewLevel() {
+    private startNewLevel(): void {
         if (this.level && this.level.failed === false) {
             this.startElementsPerLevel += this.elementsIncreasePerLevel;
         }
@@ -87,7 +87,7 @@ export default class Game {
     /**
      * Start everything from the beginning
      */
-    private restart() {
+    private restart(): void {
         this.gui.restart();
         this.currentLevelsPlayed = 0;
         this.startElementsPerLevel = config.game.startElementsPerLevel;
@@ -96,7 +96,7 @@ export default class Game {
     /**
      * Call the data service and let it do its magic
      */
-    private saveScore() {
+    private saveScore(): void {
         let score = this.gui.getScore();
         this.dataService.saveScore(score).then((data) => {
             console.log('Response after saving score', data);

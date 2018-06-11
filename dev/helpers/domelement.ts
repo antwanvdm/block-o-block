@@ -33,7 +33,7 @@ export default class DomElement {
     /**
      * @returns ClientRect
      */
-    public getClientReact() {
+    public getClientReact(): ClientRect | DOMRect {
         return this.el.getBoundingClientRect();
     }
 }

@@ -28,14 +28,14 @@ export default class Block extends DomElement {
     /**
      * Handler for clicking the blocks
      */
-    public destroy() {
+    public destroy(): void {
         this.el.remove();
     }
 
     /**
      * Main update handler for the game for moving our block randomly over the screen
      */
-    public update() {
+    public update(): void {
         if (this.x > (this.destination.x - this.speed) && this.x < (this.destination.x + this.speed)) {
             this.destination.x = Utils.getRandomInt(0, (window.outerWidth - this.width));
         }

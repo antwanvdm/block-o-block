@@ -15,7 +15,7 @@ export default class HighScoreList extends DomElement {
     /**
      * Show the high score list
      */
-    public show() {
+    public show(): void {
         this.dataService.getScores().then((data) => {
             let tBody = this.el.querySelector('.tbody');
             tBody.innerHTML = this.getTbodyTemplate(data);
@@ -26,17 +26,18 @@ export default class HighScoreList extends DomElement {
     /**
      * Hide it period
      */
-    public hide() {
+    public hide(): void {
         this.el.classList.remove('show');
     }
 
     /**
      * Return the mapped HTML <tr> list for appending in <tbody>
      *
+     * @todo Refactor due to 'make static' warning
      * @param {[{}]} data
      * @returns {string}
      */
-    private getTbodyTemplate(data: { score: number, _id: { $oid: string } }[]) {
+    private getTbodyTemplate(data: { score: number, _id: { $oid: string } }[]): string {
         return `
             ${data.map((item, index) => `<tr>
                 <td>${index + 1}</td>
@@ -49,7 +50,7 @@ export default class HighScoreList extends DomElement {
     /**
      * Template needed to show more elements
      */
-    private renderTemplate() {
+    private renderTemplate(): void {
         this.el.innerHTML = `
             <div class="message-header">
                 <p>Top 10 High Scores (press -<strong>esc</strong>- to return)</p>

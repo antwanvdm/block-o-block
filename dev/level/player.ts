@@ -30,7 +30,7 @@ export default class Player extends DomElement {
      *
      * @param e
      */
-    private keyDownHandler(e: KeyboardEvent) {
+    private keyDownHandler(e: KeyboardEvent): void {
         let key = e.key.toLowerCase();
         if (this.keysAllowed.indexOf(key) > -1 && this.keysPressed.indexOf(key) === -1) {
             this.keysPressed.push(key);
@@ -42,7 +42,7 @@ export default class Player extends DomElement {
      *
      * @param e
      */
-    private keyUpHandler(e: KeyboardEvent) {
+    private keyUpHandler(e: KeyboardEvent): void {
         let key = e.key.toLowerCase();
         let keyPressedPosition = this.keysPressed.indexOf(key);
         if (this.keysAllowed.indexOf(key) > -1 && keyPressedPosition > -1) {
@@ -53,7 +53,7 @@ export default class Player extends DomElement {
     /**
      * Update the actual position based on earlier events
      */
-    public update() {
+    public update(): void {
         this.keysPressed.forEach((key) => {
             switch (key) {
                 case 'arrowleft':
@@ -99,7 +99,7 @@ export default class Player extends DomElement {
      *
      * @param block
      */
-    public blockCaught(block: Block) {
+    public blockCaught(block: Block): void {
         this.speed += this.speedIncreaseFactor;
         this.width += this.growthFactor;
         this.height += this.growthFactor;
@@ -113,7 +113,8 @@ export default class Player extends DomElement {
     /**
      * Clean up!
      */
-    public destroy() {
+    public destroy(): void {
+        this.el.remove();
         WindowEventHandler.removeEventListener('keydown.player');
         WindowEventHandler.removeEventListener('keyup.player');
     }

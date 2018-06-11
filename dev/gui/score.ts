@@ -16,7 +16,7 @@ export default class Score extends DomElement {
      *
      * @returns {number}
      */
-    public get() {
+    public get(): number {
         return this.score;
     }
 
@@ -26,7 +26,7 @@ export default class Score extends DomElement {
      * @param score
      * @param [reset]
      */
-    public update(score: number, reset: boolean = false) {
+    public update(score: number, reset: boolean = false): void {
         this.score = reset ? score : this.score + score;
         this.el.querySelector('.score-count').innerHTML = this.score.toString();
     }
@@ -34,7 +34,7 @@ export default class Score extends DomElement {
     /**
      * Template needed to show more elements
      */
-    private renderTemplate() {
+    private renderTemplate(): void {
         this.el.innerHTML = `
             <div class="message-body">
                 <span>score: </span>

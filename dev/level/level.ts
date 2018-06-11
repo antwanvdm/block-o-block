@@ -35,7 +35,7 @@ export default class Level extends DomElement {
     /**
      * Checks for collision and potential success of this level
      */
-    public update() {
+    public update(): void {
         this.player.update();
         this.blocks.forEach((block, index) => {
             block.update();
@@ -58,7 +58,7 @@ export default class Level extends DomElement {
      *
      * @param eventType
      */
-    private destroy(eventType: string) {
+    private destroy(eventType: string): void {
         this.timer.destroy();
         this.player.destroy();
         this.blocks.forEach((block, index) => {

@@ -29,7 +29,7 @@ export default class GUI extends DomElement {
      *
      * @param {KeyboardEvent} e
      */
-    keyBoardHandler(e: KeyboardEvent) {
+    keyBoardHandler(e: KeyboardEvent): void {
         let key = e.key.toLowerCase();
         if (key === 'h' && this.highScoreListVisible === false) {
             this.highScoreListVisible = true;
@@ -45,14 +45,14 @@ export default class GUI extends DomElement {
      *
      * @param {string} type
      */
-    public levelDone(type: string) {
+    public levelDone(type: string): void {
         this.messageScreen.show(type);
     }
 
     /**
      * Triggered when a new level starts
      */
-    public newLevel() {
+    public newLevel(): void {
         this.messageScreen.hide();
     }
 
@@ -61,7 +61,7 @@ export default class GUI extends DomElement {
      *
      * @param maxScore
      */
-    public gameEnd(maxScore: number) {
+    public gameEnd(maxScore: number): void {
         this.messageScreen.show('game:end', {
             '__SCORE__': this.score.get().toString(),
             '__MAX_SCORE__': maxScore.toString()
@@ -71,7 +71,7 @@ export default class GUI extends DomElement {
     /**
      * Triggered when we need to restart, go to first screen and set score to 0
      */
-    public restart() {
+    public restart(): void {
         this.messageScreen.hide();
         this.messageScreen.show('game:start');
         this.score.update(0, true);
@@ -80,7 +80,7 @@ export default class GUI extends DomElement {
     /**
      * @returns {number}
      */
-    public getScore() {
+    public getScore(): number {
         return this.score.get();
     }
 }

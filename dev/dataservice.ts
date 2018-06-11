@@ -3,6 +3,7 @@ import config from './config.json';
 export default class DataService {
     private endPointList: string = `/databases/${config.dataService.databaseName}/collections/${config.dataService.collectionName}?apiKey=${config.dataService.apiKey}`;
     private endPointSave: string = `/databases/${config.dataService.databaseName}/collections/${config.dataService.collectionName}?apiKey=${config.dataService.apiKey}`;
+    private disabledMessage:string = 'Dataservice is disabled';
 
     /**
      * Store the latest score in the DB
@@ -10,7 +11,7 @@ export default class DataService {
      * @param score
      * @returns {Promise<{}>}
      */
-    public saveScore(score: number) {
+    public saveScore(score: number): Promise<any> {
         if (config.functionalities.dataService === false) {
             return this.disabled();
         }
@@ -33,7 +34,7 @@ export default class DataService {
      *
      * @returns {Promise<[]>}
      */
-    public getScores() {
+    public getScores(): Promise<any> {
         if (config.functionalities.dataService === false) {
             return this.disabled();
         }
@@ -49,9 +50,9 @@ export default class DataService {
      *
      * @returns {Promise<{}>}
      */
-    private disabled() {
+    private disabled(): Promise<any> {
         return new Promise((resolve) => {
-            resolve({"error": "Dataservice is disabled"});
+            resolve({"error": this.disabledMessage});
         });
     }
 }

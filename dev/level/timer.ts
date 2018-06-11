@@ -18,7 +18,7 @@ export default class Timer extends DomElement {
     /**
      * Countdown of seconds
      */
-    private update() {
+    private update(): void {
         this.seconds--;
         this.el.querySelector('.seconds').innerHTML = this.seconds.toString();
 
@@ -35,14 +35,14 @@ export default class Timer extends DomElement {
         }
     }
 
-    public destroy() {
+    public destroy(): void {
         clearInterval(this.intervalId);
     }
 
     /**
      * Template needed to show more elements
      */
-    private renderTemplate() {
+    private renderTemplate(): void {
         this.el.innerHTML = `
             <div class="message-body">
                 <span>time: </span>

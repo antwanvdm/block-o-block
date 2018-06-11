@@ -42,7 +42,7 @@ export default class MessageScreen extends DomElement {
      *
      * @param {KeyboardEvent} e
      */
-    keyBoardHandler(e: KeyboardEvent) {
+    private keyBoardHandler(e: KeyboardEvent): void {
         if (e.key === ' ' && this.isActive === true) {
             window.dispatchEvent(new Event(`${this.currentEvent}:click`));
         }
@@ -54,7 +54,7 @@ export default class MessageScreen extends DomElement {
      * @param type
      * @param [bodyReplacements]
      */
-    public show(type: string, bodyReplacements: { [k: string]: string } = {}) {
+    public show(type: string, bodyReplacements: { [k: string]: string } = {}): void {
         let messageHeader = this.messages[type].header;
         let messageBody = this.messages[type].body;
         for (let replacement in bodyReplacements) {
@@ -72,7 +72,7 @@ export default class MessageScreen extends DomElement {
     /**
      * Hide message on screen
      */
-    public hide() {
+    public hide(): void {
         this.el.classList.remove('show', 'is-info', 'is-success', 'is-danger');
         this.isActive = false;
     }
@@ -80,7 +80,7 @@ export default class MessageScreen extends DomElement {
     /**
      * Template needed to show more elements
      */
-    private renderTemplate() {
+    private renderTemplate(): void {
         this.el.innerHTML = `
             <div class="message-header"></div>
             <div class="message-body"></div>
