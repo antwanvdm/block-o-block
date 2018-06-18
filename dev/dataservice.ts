@@ -6,8 +6,7 @@ export default class DataService {
 
     private endPointList: string = `/databases/${config.mLab.databaseName}/collections/${config.mLab.collectionName}?apiKey=${config.mLab.apiKey}`;
     private endPointSave: string = `/databases/${config.mLab.databaseName}/collections/${config.mLab.collectionName}?apiKey=${config.mLab.apiKey}`;
-    private disabledMessage: string = 'Dataservice is disabled or you are offline';
-    private offlineUserScores: number[] = [];
+    private offlineUserScores: { name: string, score: number }[] = [];
 
     private constructor() {
         WindowEventHandler.addEventListener('online.dataservice', () => this.saveScoreToMlab());
@@ -28,20 +27,23 @@ export default class DataService {
     /**
      * Store the latest score in the DB
      *
+     * @param name
      * @param score
      * @returns {Promise<{}>}
      */
-    public saveScore(score: number): Promise<any> {
+    public saveScore(name: string, score: number): Promise<any> {
+        let userScore = {name, score};
+
         if (config.functionalities.mLab === false || window.navigator.onLine === false) {
-            this.offlineUserScores.push(score);
-            return this.disabled();
+            this.offlineUserScores.push(userScore);
+            return new Promise((resolve) => {
+                resolve(userScore);
+            });
         }
 
         let url = `${config.mLab.baseUrl}${this.endPointSave}`;
         return fetch(url, {
-            body: JSON.stringify({
-                score: score
-            }),
+            body: JSON.stringify(userScore),
             headers: {
                 'content-type': 'application/json'
             },
@@ -80,20 +82,9 @@ export default class DataService {
      */
     private saveScoreToMlab(): void {
         if (this.offlineUserScores.length > 0) {
-            Promise.all(this.offlineUserScores.map((score) => this.saveScore(score))).then(() => {
+            Promise.all(this.offlineUserScores.map((user) => this.saveScore(user.name, user.score))).then(() => {
                 this.offlineUserScores = [];
             });
         }
-    }
-
-    /**
-     * General message when this service is inactive
-     *
-     * @returns {Promise<{}>}
-     */
-    private disabled(): Promise<any> {
-        return new Promise((resolve) => {
-            resolve({"error": this.disabledMessage});
-        });
     }
 }

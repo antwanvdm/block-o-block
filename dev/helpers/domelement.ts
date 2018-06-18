@@ -1,5 +1,5 @@
 export default class DomElement {
-    protected el: HTMLElement;
+    protected el: HTMLDivElement;
     protected x: number;
     protected y: number;
 

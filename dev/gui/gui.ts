@@ -2,11 +2,14 @@ import Score from './score';
 import MessageScreen from './messagescreen';
 import DomElement from "../helpers/domelement";
 import HighScoreList from "./highscorelist";
+import NameForm from './nameform';
 import WindowEventHandler from "../helpers/windoweventhandler";
 
 export default class GUI extends DomElement {
     private score: Score;
     private messageScreen: MessageScreen;
+    private nameForm: NameForm;
+    private nameFormVisible: boolean = false;
     private highScoreList: HighScoreList;
     private highScoreListVisible: boolean = false;
 
@@ -15,6 +18,7 @@ export default class GUI extends DomElement {
 
         this.score = new Score();
         this.messageScreen = new MessageScreen();
+        this.nameForm = new NameForm();
         window.addEventListener('level:scoreUpdate', (e) => this.score.update((e as CustomEvent).detail.score));
 
         this.highScoreList = new HighScoreList();
@@ -28,12 +32,27 @@ export default class GUI extends DomElement {
      */
     keyBoardHandler(e: KeyboardEvent): void {
         let key = e.key.toLowerCase();
-        if (key === 'h' && this.highScoreListVisible === false) {
+
+        //Checks for the high score modal show/hide
+        if (key === 'h' && this.highScoreListVisible === false && this.nameFormVisible === false) {
             this.highScoreListVisible = true;
             this.highScoreList.show();
+            this.messageScreen.isActive = false;
         } else if (key === 'escape' && this.highScoreListVisible === true) {
             this.highScoreListVisible = false;
             this.highScoreList.hide();
+            this.messageScreen.isActive = true;
+        }
+
+        //Checks for the name entering modal show/hide
+        if (key === 'n' && this.highScoreListVisible === false && this.nameFormVisible === false && this.messageScreen.currentEvent === 'game:end') {
+            this.nameFormVisible = true;
+            this.nameForm.show(this.score.get());
+            this.messageScreen.isActive = false;
+        } else if (key === 'escape' && this.nameFormVisible === true) {
+            this.nameFormVisible = false;
+            this.nameForm.hide();
+            this.messageScreen.isActive = true;
         }
     }
 
@@ -72,12 +91,5 @@ export default class GUI extends DomElement {
         this.messageScreen.hide();
         this.messageScreen.show('game:start');
         this.score.update(0, true);
-    }
-
-    /**
-     * @returns {number}
-     */
-    public getScore(): number {
-        return this.score.get();
     }
 }

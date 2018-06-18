@@ -3,12 +3,12 @@ import DataService from "../dataservice";
 
 export default class HighScoreList extends DomElement {
     private dataService: DataService;
-    private scores: { score: number, _id: { $oid: string } }[];
-    private tBody: HTMLElement;
+    private scores: { name: string, score: number, _id: { $oid: string } }[];
+    private tBody: HTMLTableSectionElement;
 
     constructor() {
         super('highscorelist', -1, -1, 'gui');
-        this.el.classList.add('message', 'is-warning');
+        this.el.classList.add('modal');
 
         this.renderTemplate();
         this.tBody = this.el.querySelector('.tbody');
@@ -30,7 +30,7 @@ export default class HighScoreList extends DomElement {
             this.tBody.innerHTML = this.getTbodyTemplate();
 
             if (showScreen === true) {
-                this.el.classList.add('show');
+                this.el.classList.add('is-active');
             }
         })
     }
@@ -40,7 +40,7 @@ export default class HighScoreList extends DomElement {
      *
      * @param {{}} data
      */
-    private updateData(data: { score: number, _id: { $oid: string } }): void {
+    private updateData(data: { name: string, score: number, _id: { $oid: string } }): void {
         //Check if given score is top 10 worthy
         let lowestCurrentScore = this.scores.length === 0 ? -1 : this.scores[this.scores.length - 1].score;
         if (lowestCurrentScore < data.score || this.scores.length < 10) {
@@ -59,7 +59,7 @@ export default class HighScoreList extends DomElement {
         if (typeof this.scores === 'undefined') {
             this.loadScoreData(true);
         } else {
-            this.el.classList.add('show');
+            this.el.classList.add('is-active');
         }
     }
 
@@ -67,7 +67,7 @@ export default class HighScoreList extends DomElement {
      * Hide it period
      */
     public hide(): void {
-        this.el.classList.remove('show');
+        this.el.classList.remove('is-active');
     }
 
     /**
@@ -79,7 +79,7 @@ export default class HighScoreList extends DomElement {
         return `
             ${this.scores.map((item, index) => `<tr>
                 <td>${index + 1}</td>
-                <td>${item._id.$oid}</td>
+                <td>${item.name}</td>
                 <td>${item.score.toString()}</td>
             </tr>`).join('')}
         `;
@@ -90,20 +90,25 @@ export default class HighScoreList extends DomElement {
      */
     private renderTemplate(): void {
         this.el.innerHTML = `
-            <div class="message-header">
-                <p>Top 10 High Scores (press -<strong>ESC</strong>- to return)</p>
-            </div>
-            <div class="message-body">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>MongoID</th>
-                        <th>Score</th>
-                    </tr>
-                    </thead>
-                    <tbody class="tbody"></tbody>
-                </table>
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <div class="message is-warning">
+                    <div class="message-header">
+                        <p>Top 10 Scores (press -<strong>ESC</strong>- to return)</p>
+                    </div>
+                    <div class="message-body">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Score</th>
+                            </tr>
+                            </thead>
+                            <tbody class="tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         `;
     }

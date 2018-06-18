@@ -66,7 +66,7 @@ off course it needs modules/webpack and a more logical folder structure.~~
 * ~~Better styling with some CSS framework~~
 * ~~Store scores and show a high score list~~
 * ~~Update the high score logic with local storage~~
-* Enter your name for the high score and show your personal best score
+* ~~Enter your name for the high score and show your personal best score~~
 * More interaction in the levels to have a more dynamic feeling, I guess
 the game could get boring now :-)
 * Maybe translate the DOM element to Canvas elements, because it will

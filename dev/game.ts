@@ -1,7 +1,6 @@
 import config from './config.json';
 import GUI from './gui/gui';
 import Level from "./level/level";
-import DataService from "./dataservice";
 
 export default class Game {
     private level: Level;
@@ -12,13 +11,11 @@ export default class Game {
     private scorePerElement: number = config.game.scorePerElement;
     private readonly maxScore: number;
     private gui: GUI;
-    private dataService: DataService;
 
     constructor() {
         this.gui = new GUI();
         this.maxScore = this.calculateMaxScore();
         this.gameLoop();
-        this.dataService = DataService.getInstance();
 
         ['level:success', 'level:failed'].map((eventType) => {
             window.addEventListener(eventType, (e) => this.update(e.type));
@@ -32,7 +29,6 @@ export default class Game {
     /**
      * Calculate the score with available parameters
      *
-     * @todo Do I really need to do this so inefficient..?
      * @returns {number}
      */
     private calculateMaxScore(): number {
@@ -63,7 +59,6 @@ export default class Game {
         this.currentLevelsPlayed++;
         if (this.currentLevelsPlayed === this.levelsPerGame) {
             this.gui.gameEnd(this.maxScore);
-            this.saveScore();
             return;
         }
 
@@ -92,17 +87,5 @@ export default class Game {
         this.currentLevelsPlayed = 0;
         this.startElementsPerLevel = config.game.startElementsPerLevel;
         delete this.level;
-    }
-
-    /**
-     * Call the data service and let it do its magic
-     */
-    private saveScore(): void {
-        let score = this.gui.getScore();
-        this.dataService.saveScore(score).then((data) => {
-            if (typeof data.error === 'undefined') {
-                window.dispatchEvent(new CustomEvent('game:scoreSaved', {detail: {data}}));
-            }
-        });
     }
 }
