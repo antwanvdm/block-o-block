@@ -10,11 +10,12 @@ export default class NameForm extends DomElement {
     private form: HTMLFormElement;
     private feedbackMessage: HTMLParagraphElement;
     private nameField: HTMLInputElement;
+    private nameMaxLength: number = 16;
 
     constructor() {
         super('nameform', -1, -1, 'gui');
         this.dataService = DataService.getInstance();
-        this.filter = new Filter({ list: config.game.badWords });
+        this.filter = new Filter({list: config.game.badWords});
 
         this.el.classList.add('modal');
         this.renderTemplate();
@@ -57,19 +58,17 @@ export default class NameForm extends DomElement {
         e.preventDefault();
         let name = this.nameField.value;
 
-        if (name == "" || this.filter.isProfane(name)){
+        if (name == "" || name.length > this.nameMaxLength || this.filter.isProfane(name)) {
             this.nameField.classList.add('is-danger');
             return;
         }
 
         this.dataService.saveScore(name, this.score).then((data) => {
-            if (typeof data.error === 'undefined') {
-                window.dispatchEvent(new CustomEvent('game:scoreSaved', {detail: {data}}));
+            window.dispatchEvent(new CustomEvent('game:scoreSaved', {detail: {data}}));
 
-                this.feedbackMessage.innerHTML = 'Your score has been saved, Press <strong>-ESC-</strong> to return to the previous screen!';
-                this.form.classList.add('is-hidden');
-                this.feedbackMessage.classList.remove('is-hidden');
-            }
+            this.feedbackMessage.innerHTML = 'Your score has been saved, Press <strong>-ESC-</strong> to return to the previous screen!';
+            this.form.classList.add('is-hidden');
+            this.feedbackMessage.classList.remove('is-hidden');
         });
     }
 
@@ -86,7 +85,7 @@ export default class NameForm extends DomElement {
                         <p class="feedback-message is-hidden"></p>
                         <form method="post" action="" class="name-form">
                             <div class="control has-icons-left">
-                                <input name="name" class="name input" type="text" placeholder="Enter your name.." maxlength="16" autocomplete="off"/>
+                                <input name="name" class="name input" type="text" placeholder="Enter your name.." maxlength="${this.nameMaxLength}" autocomplete="off"/>
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-user"></i>
                                 </span>
