@@ -1,8 +1,10 @@
 import DomElement from "../helpers/domelement";
 import DataService from "../dataservice";
-// import Filter from "bad-words";
+import Filter from "bad-words";
+import config from "../config.json";
 
 export default class NameForm extends DomElement {
+    private filter: Filter;
     private dataService: DataService;
     private score: number = 0;
     private form: HTMLFormElement;
@@ -12,6 +14,7 @@ export default class NameForm extends DomElement {
     constructor() {
         super('nameform', -1, -1, 'gui');
         this.dataService = DataService.getInstance();
+        this.filter = new Filter({ list: config.game.badWords });
 
         this.el.classList.add('modal');
         this.renderTemplate();
@@ -29,6 +32,7 @@ export default class NameForm extends DomElement {
      * @param {number} score
      */
     public show(score: number): void {
+        this.nameField.classList.remove('is-danger');
         this.form.classList.remove('is-hidden');
         this.feedbackMessage.classList.add('is-hidden');
 
@@ -53,6 +57,11 @@ export default class NameForm extends DomElement {
         e.preventDefault();
         let name = this.nameField.value;
 
+        if (name == "" || this.filter.isProfane(name)){
+            this.nameField.classList.add('is-danger');
+            return;
+        }
+
         this.dataService.saveScore(name, this.score).then((data) => {
             if (typeof data.error === 'undefined') {
                 window.dispatchEvent(new CustomEvent('game:scoreSaved', {detail: {data}}));
@@ -71,13 +80,13 @@ export default class NameForm extends DomElement {
         this.el.innerHTML = `
             <div class="modal-background"></div>
             <div class="modal-content">
-                <div class="message">
+                <div class="message is-warning">
                     <div class="message-header">Please enter your name</div>
                     <div class="message-body">
                         <p class="feedback-message is-hidden"></p>
                         <form method="post" action="" class="name-form">
                             <div class="control has-icons-left">
-                                <input name="name" class="name input is-primary" type="text" placeholder="Enter your name.." maxlength="16" autocomplete="off"/>
+                                <input name="name" class="name input" type="text" placeholder="Enter your name.." maxlength="16" autocomplete="off"/>
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-user"></i>
                                 </span>

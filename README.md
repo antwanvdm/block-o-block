@@ -9,23 +9,28 @@ Your will always be able to only play X amount of levels, which results
 in a total score at the end of your game.
 
 ## Why did I start this?
-Pretty ease, my students are working on a Typescript game as we speak,
-and I wanted to make sure I mastered the basics. After 1 day my ambitions
-grew and this game will probably get way bigger than ever intended...
+While my students were starting on a Typescript game, I never used this
+language before. And even though it could never be 'that hard', I still
+wanted to make sure I mastered the basics. After I stared developing my
+personal game, I knew it would only end when I would run out of time...
 
 ## Live demo
 Thanks to the wonderful feature 'Github live pages' you can check the live
-demo here: [Check it out!](https://antwanvdm.github.io/block-o-block/)
+demo here: [Check it out!](https://block-o-block.antwan.eu)
 
 ## How to get it running?
-1. Install typescript with `npm install -g typescript`
-2. Make sure latest versions of node (8.11.2) and npm (5.6.0) are installed
-3. Run `npm install` for the right tools
-4. Run `npm run watch` in the root folder
+1. Make sure latest versions of node (8.11.2) and npm (5.6.0) are installed
+2. Install typescript with `npm install -g typescript`
+3  Git clone this project
+3. Run `npm install` in the root folder for the right tools
+4. Run `npm run watch` in the root folder while developing
 5. Have a web server running with the `/docs` folder as root folder
 6. Add the `dev/config.json` file as it isn't part of the git code. Contents
-should look like the following code. You can set the `mLab` property to 
-`false` if configuring the mLab api takes way too much time :-)
+should look like the following code. You can set the `functionalities.mLab`
+property to `false` if configuring the mLab api takes way too much time :-)
+Also add as much additional 'bad words' to the `game.badWords` property which
+are important to you, but missing within the
+[dependency package](https://github.com/web-mech/badwords/blob/master/lib/lang.json)
 ```
 {
   "game": {
@@ -46,7 +51,8 @@ should look like the following code. You can set the `mLab` property to
       "growthFactor": 1.5,
       "speed": 2,
       "speedIncreaseFactor": 0.2
-    }
+    },
+    "badWords": ["hitler", "jood", "slet"]
   },
   "functionalities": {
     "mLab": true
@@ -67,7 +73,7 @@ off course it needs modules/webpack and a more logical folder structure.~~
 * ~~Store scores and show a high score list~~
 * ~~Update the high score logic with local storage~~
 * ~~Enter your name for the high score and show your personal best score~~
-* More interaction in the levels to have a more dynamic feeling, I guess
-the game could get boring now :-)
-* Maybe translate the DOM element to Canvas elements, because it will
-probably perform better in the end
+* Optional: More interaction in the levels to have a more dynamic feeling,
+I guess the game could get boring now :-)
+* Optional: convert the DOM elements to Canvas elements, because it might
+perform better in the end
