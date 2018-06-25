@@ -5,26 +5,30 @@ export default class MessageScreen extends DomElement {
     public currentEvent: string;
     public isActive: boolean = false;
 
-    private messages: { [k: string]: { 'header': string, 'body': string, 'className': string } } = {
+    private gameStates: { [k: string]: { 'header': string, 'body': string, 'className': string, 'keyUpKey': string } } = {
         'game:start': {
             'header': 'Welcome to Block-o-Block!',
             'body': 'It\'s time to catch them blocks!<br/><br/>Use your arrow keys to move your player around and press space to start.<br/><br/>Press -<strong>H</strong>- to view the highscore list.',
-            'className': 'is-info'
+            'className': 'is-info',
+            'keyUpKey': ' '
         },
         'game:end': {
             'header': 'Your game is over!',
-            'body': 'You made it, your final score is __SCORE__ out of max __MAX_SCORE__ points.<br/><br/>Thanks for playing, press <strong>-N-</strong> to save your score or press space to restart the madness.<br/><br/>Press -<strong>H</strong>- to view the highscore list.',
-            'className': 'is-success'
+            'body': 'You made it, your final score is __SCORE__ out of max __MAX_SCORE__ points.<br/><br/>Thanks for playing, press <strong>-N-</strong> to save your score or press enter to restart the madness.<br/><br/>Press -<strong>H</strong>- to view the highscore list.',
+            'className': 'is-success',
+            'keyUpKey': 'enter'
         },
         'level:success': {
             'header': 'YEAH! Level completed!',
             'body': 'Performing like a boss! Press space to proceed to the next level and catch even more blocks.',
-            'className': 'is-success'
+            'className': 'is-success',
+            'keyUpKey': ' '
         },
         'level:failed': {
             'header': 'AAH! Level failed!',
             'body': 'Try again and show us what you\'re made off! Press space to restart this level.',
-            'className': 'is-danger'
+            'className': 'is-danger',
+            'keyUpKey': ' '
         }
     };
 
@@ -44,8 +48,9 @@ export default class MessageScreen extends DomElement {
      */
     private keyBoardHandler(e: KeyboardEvent): void {
         let key = e.key.toLowerCase();
+        let keyToUse = this.gameStates[this.currentEvent].keyUpKey;
 
-        if (key === ' ' && this.isActive === true) {
+        if (key === keyToUse && this.isActive === true) {
             window.dispatchEvent(new Event(`${this.currentEvent}:click`));
         }
     }
@@ -57,8 +62,8 @@ export default class MessageScreen extends DomElement {
      * @param [bodyReplacements]
      */
     public show(type: string, bodyReplacements: { [k: string]: string } = {}): void {
-        let messageHeader = this.messages[type].header;
-        let messageBody = this.messages[type].body;
+        let messageHeader = this.gameStates[type].header;
+        let messageBody = this.gameStates[type].body;
         for (let replacement in bodyReplacements) {
             messageBody = messageBody.replace(replacement, bodyReplacements[replacement]);
         }
@@ -66,7 +71,7 @@ export default class MessageScreen extends DomElement {
         this.el.querySelector('.message-header').innerHTML = messageHeader;
         this.el.querySelector('.message-body').innerHTML = messageBody;
 
-        this.el.classList.add('show', this.messages[type].className);
+        this.el.classList.add('show', this.gameStates[type].className);
         this.currentEvent = type;
         this.isActive = true;
     }
