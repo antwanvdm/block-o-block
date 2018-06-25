@@ -5,30 +5,30 @@ export default class MessageScreen extends DomElement {
     public currentEvent: string;
     public isActive: boolean = false;
 
-    private gameStates: { [k: string]: { 'header': string, 'body': string, 'className': string, 'keyUpKey': string } } = {
+    private gameStates: { [k: string]: { 'header': string, 'body': string, 'className': string, 'keyboardTriggerKey': string } } = {
         'game:start': {
             'header': 'Welcome to Block-o-Block!',
             'body': 'It\'s time to catch them blocks!<br/><br/>Use your arrow keys to move your player around and press space to start.<br/><br/>Press -<strong>H</strong>- to view the highscore list.',
             'className': 'is-info',
-            'keyUpKey': ' '
+            'keyboardTriggerKey': ' '
         },
         'game:end': {
             'header': 'Your game is over!',
             'body': 'You made it, your final score is __SCORE__ out of max __MAX_SCORE__ points.<br/><br/>Thanks for playing, press <strong>-N-</strong> to save your score or press enter to restart the madness.<br/><br/>Press -<strong>H</strong>- to view the highscore list.',
             'className': 'is-success',
-            'keyUpKey': 'enter'
+            'keyboardTriggerKey': 'enter'
         },
         'level:success': {
             'header': 'YEAH! Level completed!',
             'body': 'Performing like a boss! Press space to proceed to the next level and catch even more blocks.',
             'className': 'is-success',
-            'keyUpKey': ' '
+            'keyboardTriggerKey': ' '
         },
         'level:failed': {
             'header': 'AAH! Level failed!',
             'body': 'Try again and show us what you\'re made off! Press space to restart this level.',
             'className': 'is-danger',
-            'keyUpKey': ' '
+            'keyboardTriggerKey': ' '
         }
     };
 
@@ -48,7 +48,7 @@ export default class MessageScreen extends DomElement {
      */
     private keyBoardHandler(e: KeyboardEvent): void {
         let key = e.key.toLowerCase();
-        let keyToUse = this.gameStates[this.currentEvent].keyUpKey;
+        let keyToUse = this.gameStates[this.currentEvent].keyboardTriggerKey;
 
         if (key === keyToUse && this.isActive === true) {
             window.dispatchEvent(new Event(`${this.currentEvent}:click`));
