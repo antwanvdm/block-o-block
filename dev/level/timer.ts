@@ -1,7 +1,8 @@
 import config from '../config.json';
 import DomElement from "../helpers/domelement";
+import LevelEntity from "./levelentity";
 
-export default class Timer extends DomElement {
+export default class Timer extends DomElement implements LevelEntity {
     seconds: number = config.game.secondsPerLevel;
     intervalId: number;
 
@@ -18,7 +19,7 @@ export default class Timer extends DomElement {
     /**
      * Countdown of seconds
      */
-    private update(): void {
+    public update(): void {
         this.seconds--;
         this.el.querySelector('.seconds').innerHTML = this.seconds.toString();
 

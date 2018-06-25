@@ -5,8 +5,9 @@ import Player from "./player";
 import Timer from "./timer";
 import Utils from "../helpers/utils";
 import WindowEventHandler from "../helpers/windoweventhandler";
+import LevelEntity from "./levelentity";
 
-export default class Level extends DomElement {
+export default class Level extends DomElement implements LevelEntity {
     private readonly totalBlocks: number;
     private readonly scorePerBlock: number;
     private blocks: Block[] = [];
@@ -58,7 +59,7 @@ export default class Level extends DomElement {
      *
      * @param eventType
      */
-    private destroy(eventType: string): void {
+    public destroy(eventType: string): void {
         this.timer.destroy();
         this.player.destroy();
         this.blocks.forEach((block, index) => {

@@ -2,8 +2,9 @@ import config from '../config.json';
 import DomElement from "../helpers/domelement";
 import Block from "./block";
 import WindowEventHandler from "../helpers/windoweventhandler";
+import LevelEntity from "./levelentity";
 
-export default class Player extends DomElement {
+export default class Player extends DomElement implements LevelEntity {
     private height: number = 10;
     private width: number = 10;
     private growthFactor: number = config.game.player.growthFactor;

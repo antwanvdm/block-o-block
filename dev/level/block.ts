@@ -1,7 +1,8 @@
 import DomElement from "../helpers/domelement";
 import Utils from "../helpers/utils";
+import LevelEntity from "./levelentity";
 
-export default class Block extends DomElement {
+export default class Block extends DomElement implements LevelEntity {
     private readonly speed: number;
     private readonly width: number;
     private readonly height: number;
@@ -23,13 +24,6 @@ export default class Block extends DomElement {
         this.x = Utils.getRandomInt(0, (window.outerWidth - this.width));
         this.y = Utils.getRandomInt(0, (document.documentElement.clientHeight - this.height));
         this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
-    }
-
-    /**
-     * Handler for clicking the blocks
-     */
-    public destroy(): void {
-        this.el.remove();
     }
 
     /**
@@ -56,5 +50,12 @@ export default class Block extends DomElement {
         }
 
         this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
+    }
+
+    /**
+     * Handler for clicking the blocks
+     */
+    public destroy(): void {
+        this.el.remove();
     }
 }
