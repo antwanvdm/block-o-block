@@ -3,7 +3,7 @@
 ## What is this game about?
 This game is mainly about getting more knowledge about typescript and
 building a game around it. The base idea is to give users a simple circle
-which can catch blocks by using your arrow keys. Each level results in
+which can catch blocks by using the arrow keys. Each level results in
 having more blocks on your screen with the same time available per level.
 Your will always be able to only play X amount of levels, which results
 in a total score at the end of your game.
@@ -11,11 +11,12 @@ in a total score at the end of your game.
 ## Why did I start this?
 While my students were starting on a Typescript game, I never used this
 language before. And even though it could never be 'that hard', I still
-wanted to make sure I mastered the basics. After I stared developing my
-personal game, I knew it would only end when I would run out of time...
+wanted to make sure I mastered the basics. I focused on implementing the
+right code standards and eventually created a keyboard based game, which
+currently lacks any support on touch devices.
 
 ## Live demo
-Thanks to the wonderful feature 'Github live pages' you can check the live
+Thanks to the wonderful feature *'Github live pages'* you can check the live
 demo here: [Check it out!](https://block-o-block.antwan.eu)
 
 ## How to get it running?
@@ -73,6 +74,7 @@ off course it needs modules/webpack and a more logical folder structure.~~
 * ~~Store scores and show a high score list~~
 * ~~Update the high score logic with local storage~~
 * ~~Enter your name for the high score and show your personal best score~~
+* Optional: Make a mobile version without keyboard
 * Optional: More interaction in the levels to have a more dynamic feeling,
 I guess the game could get boring now :-)
 * Optional: convert the DOM elements to Canvas elements, because it might
