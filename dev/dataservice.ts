@@ -9,7 +9,12 @@ export default class DataService {
     private offlineUserScores: { name: string, score: number }[] = [];
 
     private constructor() {
-        WindowEventHandler.addEventListener('online.dataservice', () => this.saveScoreToMlab());
+        WindowEventHandler.addEventListener('online.dataservice', () => this.saveOfflineScoresToMlab());
+
+        //Make sure local storage is never empty to prevent error when data service is inactive
+        if (localStorage.getItem('scores') === null) {
+            localStorage.setItem('scores', JSON.stringify([]));
+        }
     }
 
     /**
@@ -36,6 +41,12 @@ export default class DataService {
 
         if (config.functionalities.mLab === false || window.navigator.onLine === false) {
             this.offlineUserScores.push(userScore);
+
+            //Save to local storage
+            let mergedScores = JSON.parse(localStorage.getItem('scores')).concat(this.offlineUserScores);
+            localStorage.setItem('scores', JSON.stringify(mergedScores));
+
+            //Return same kind of promise as when connection would be on
             return new Promise((resolve) => {
                 resolve(userScore);
             });
@@ -80,7 +91,7 @@ export default class DataService {
     /**
      * Save the score to mLab once back online
      */
-    private saveScoreToMlab(): void {
+    private saveOfflineScoresToMlab(): void {
         if (this.offlineUserScores.length > 0) {
             Promise.all(this.offlineUserScores.map((user) => this.saveScore(user.name, user.score))).then(() => {
                 this.offlineUserScores = [];

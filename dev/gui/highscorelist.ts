@@ -5,6 +5,8 @@ export default class HighScoreList extends DomElement {
     private dataService: DataService;
     private scores: { name: string, score: number, _id: { $oid: string } }[];
     private tBody: HTMLTableSectionElement;
+    private table: HTMLTableElement;
+    private noDataP: HTMLParagraphElement;
 
     constructor() {
         super('highscorelist', -1, -1, 'gui');
@@ -12,6 +14,8 @@ export default class HighScoreList extends DomElement {
 
         this.renderTemplate();
         this.tBody = this.el.querySelector('.tbody');
+        this.table = this.el.querySelector('.table');
+        this.noDataP = this.el.querySelector('.no-data');
 
         this.dataService = DataService.getInstance();
         this.loadScoreData();
@@ -27,7 +31,12 @@ export default class HighScoreList extends DomElement {
     private loadScoreData(showScreen: boolean = false): void {
         this.dataService.getScores().then((data) => {
             this.scores = data;
-            this.tBody.innerHTML = this.getTbodyTemplate();
+            if (data.length === 0) {
+                this.noDataP.classList.remove('is-hidden');
+                this.table.classList.add('is-hidden');
+            } else {
+                this.tBody.innerHTML = this.getTbodyTemplate();
+            }
 
             if (showScreen === true) {
                 this.el.classList.add('is-active');
@@ -49,6 +58,8 @@ export default class HighScoreList extends DomElement {
             this.scores.sort((a, b) => b.score - a.score);
             this.scores.splice(10, 1);
             this.tBody.innerHTML = this.getTbodyTemplate();
+            this.noDataP.classList.add('is-hidden');
+            this.table.classList.remove('is-hidden');
         }
     }
 
@@ -97,6 +108,7 @@ export default class HighScoreList extends DomElement {
                         <p>Top 10 Scores (press -<strong>ESC</strong>- to return)</p>
                     </div>
                     <div class="message-body">
+                        <p class="no-data is-hidden">Unfortunately there is no stored data yet. Either the connection is broken or the data service isn't connected.</p>
                         <table class="table">
                             <thead>
                             <tr>
