@@ -1,5 +1,6 @@
 import DomElement from "../helpers/domelement";
 import DataService from "../dataservice";
+import {escape} from 'he';
 
 export default class HighScoreList extends DomElement {
     private dataService: DataService;
@@ -90,7 +91,7 @@ export default class HighScoreList extends DomElement {
         return `
             ${this.scores.map((item, index) => `<tr>
                 <td>${index + 1}</td>
-                <td>${item.name}</td>
+                <td>${escape(item.name)}</td>
                 <td>${item.score.toString()}</td>
             </tr>`).join('')}
         `;
