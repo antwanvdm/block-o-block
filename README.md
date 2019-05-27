@@ -22,11 +22,11 @@ demo here: [Check it out!](https://block-o-block.antwan.eu)
 ## How to get it running?
 1. Make sure latest versions of node (8.11.2) and npm (5.6.0) are installed
 2. Install typescript with `npm install -g typescript`
-3  Git clone this project
-3. Run `npm install` in the root folder for the right tools
-4. Run `npm run watch` in the root folder while developing
-5. Have a web server running with the `/docs` folder as root folder
-6. Add the `dev/config.json` file as it isn't part of the git code. Contents
+3. Git clone this project
+4. Run `npm install` in the root folder for the right tools
+5. Run `npm run watch` in the root folder while developing
+6. Have a web server running with the `/docs` folder as root folder
+7. Add the `dev/config.json` file as it isn't part of the git code. Contents
 should look like the following code. You can set the `functionalities.mLab`
 property to `false` if configuring the mLab api takes way too much time :-)
 Also add as much additional 'bad words' to the `game.badWords` property which
