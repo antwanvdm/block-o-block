@@ -21,7 +21,7 @@ export default class HighScoreList extends DomElement {
         this.dataService = DataService.getInstance();
         this.loadScoreData();
 
-        window.addEventListener('game:scoreSaved', (e) => this.updateData((e as CustomEvent).detail.data));
+        window.addEventListener('game:scoreSaved', (e: Event) => this.updateData((e as CustomEvent).detail.data));
     }
 
     /**

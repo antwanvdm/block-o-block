@@ -8,6 +8,7 @@
     "noUnusedParameters": true,
     "strictNullChecks": false,
     "moduleResolution": "node",
-    "sourceMap": true
+    "sourceMap": true,
+    "lib": ["DOM", "ES2015", "ES5"]
   }
 }

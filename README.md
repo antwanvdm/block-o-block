@@ -53,10 +53,10 @@ are important to you, but missing within the
       "speed": 2,
       "speedIncreaseFactor": 0.2
     },
-    "badWords": ["hitler", "jood", "slet"]
+    "badWords": ["hitler", "fuck", "slet"]
   },
   "functionalities": {
-    "mLab": true
+    "mLab": false
   },
   "mLab": {
     "baseUrl": "https://api.mlab.com/api/1",
@@ -79,3 +79,4 @@ off course it needs modules/webpack and a more logical folder structure.~~
 I guess the game could get boring now :-)
 * Optional: convert the DOM elements to Canvas elements, because it might
 perform better in the end
+* Find alternative implementation for MongoDB Atlas instead of mLab

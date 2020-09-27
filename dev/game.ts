@@ -18,7 +18,7 @@ export default class Game {
         this.gameLoop();
 
         ['level:success', 'level:failed'].map((eventType) => {
-            window.addEventListener(eventType, (e) => this.update(e.type));
+            window.addEventListener(eventType, (e: Event) => this.update(e.type));
         });
         ['game:start:click', 'level:success:click', 'level:failed:click'].map((eventType) => {
             window.addEventListener(eventType, () => this.startNewLevel());

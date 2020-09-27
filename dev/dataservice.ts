@@ -47,6 +47,7 @@ export default class DataService {
             localStorage.setItem('scores', JSON.stringify(mergedScores));
 
             //Return same kind of promise as when connection would be on
+            // @ts-ignore
             return new Promise((resolve) => {
                 resolve(userScore);
             });
@@ -70,6 +71,7 @@ export default class DataService {
      */
     public getScores(): Promise<any> {
         if (config.functionalities.mLab === false || window.navigator.onLine === false) {
+            // @ts-ignore
             return new Promise((resolve) => {
                 resolve(JSON.parse(localStorage.getItem('scores')));
             });
@@ -93,6 +95,7 @@ export default class DataService {
      */
     private saveOfflineScoresToMlab(): void {
         if (this.offlineUserScores.length > 0) {
+            // @ts-ignore
             Promise.all(this.offlineUserScores.map((user) => this.saveScore(user.name, user.score))).then(() => {
                 this.offlineUserScores = [];
             });
