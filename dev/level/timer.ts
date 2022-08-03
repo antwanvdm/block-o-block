@@ -4,7 +4,7 @@ import LevelEntity from "./levelentity";
 
 export default class Timer extends DomElement implements LevelEntity {
     seconds: number = config.game.secondsPerLevel;
-    intervalId: number;
+    intervalId: NodeJS.Timer;
 
     constructor() {
         super('timer', -1, -1, 'level');
